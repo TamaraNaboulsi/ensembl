@@ -80,13 +80,15 @@ jobs:
         run: |
           cpanm -v --notest Text::CSV --with-all-features
           cpanm -v --notest Perl::Critic::Moose --with-all-features
-#          , Config::General, Text::Glob, Perl::Critic::Utils, DBI, Test::MockObject, DBD::mysql, PadWalker, Tie::IxHash, Test::Perl::Critic, DBIx::Class, Moose, Test::Warnings, Test::Pod::Coverage, Devel::Cycle, SQL::Translator, Config::IniFiles
+          cpanm -v --notest Config::General --with-all-features
+          cpanm -v --notest Text::Glob --with-all-features
+#          , , , Perl::Critic::Utils, DBI, Test::MockObject, DBD::mysql, PadWalker, Tie::IxHash, Test::Perl::Critic, DBIx::Class, Moose, Test::Warnings, Test::Pod::Coverage, Devel::Cycle, SQL::Translator, Config::IniFiles
 #          cpanm -v --sudo --installdeps --notest . --with-all-features
       
-      - uses: perl-actions/install-with-cpanm@v1
-        name: Install dependencies
-        with:
-          cpanfile: "cpanfile"
+#       - uses: perl-actions/install-with-cpanm@v1
+#         name: Install dependencies
+#         with:
+#           cpanfile: "cpanfile"
 #           install: |
 #             Devel::Cover
 #             Devel::Cover::Report::Coveralls
@@ -96,7 +98,7 @@ jobs:
 #             Test::Warnings
 #             DBD::SQLite
 #             JSON 
-          verbose: true
+#           verbose: true
       
 #       - name: Copy mysql/sqlite conf files
 #         run: |
