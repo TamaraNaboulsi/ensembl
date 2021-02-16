@@ -104,7 +104,7 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           mysql --version
-          which mysql
+          /usr/bin/mysql start
 #          apt update && apt install sudo
 #          sudo service mysql stop
 #          sudo /etc/init.d/mysql start
