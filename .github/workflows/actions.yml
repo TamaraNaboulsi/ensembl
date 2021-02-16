@@ -104,6 +104,8 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           mysql --version
+          apt update && apt install sudo
+          sudo /etc/init.d/mysql start
 #          apt update && apt install sudo
 #          mysql -e "CREATE USER 'github'@'%'" -u root -h localhost -P ${{ job.services.mysql.ports['3306'] }}
 #          mysql -e 'GRANT ALL PRIVILEGES ON *.* TO "github"@"%"' -u root -h 127.0.0.1 -P ${{ job.services.mysql.ports['3306'] }}
