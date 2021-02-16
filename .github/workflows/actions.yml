@@ -76,19 +76,34 @@ jobs:
           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
       
-      - name: Install dependencies
-        run: |
-          cpanm -v --notest Text::CSV --with-all-features
-          cpanm -v --notest Perl::Critic::Moose --with-all-features
-          cpanm -v --notest Config::General --with-all-features
-          cpanm -v --notest Text::Glob --with-all-features
-#          , , , Perl::Critic::Utils, DBI, Test::MockObject, DBD::mysql, PadWalker, Tie::IxHash, Test::Perl::Critic, DBIx::Class, Moose, Test::Warnings, Test::Pod::Coverage, Devel::Cycle, SQL::Translator, Config::IniFiles
+#       - name: Install dependencies
+#         run: |
+#           cpanm -v --notest Text::CSV --with-all-features
+#           cpanm -v --notest Perl::Critic::Moose --with-all-features
+#           cpanm -v --notest Config::General --with-all-features
+#           cpanm -v --notest Text::Glob --with-all-features
+#           cpanm -v --notest Perl::Critic::Utils --with-all-features
+#           cpanm -v --notest DBI --with-all-features
+#           cpanm -v --notest Test::MockObject --with-all-features
+#           cpanm -v --notest DBD::mysql --with-all-features
+#           cpanm -v --notest PadWalker --with-all-features
+#           cpanm -v --notest Tie::IxHash --with-all-features
+#           cpanm -v --notest Test::Perl::Critic --with-all-features
+#           cpanm -v --notest DBIx::Class --with-all-features
+#           cpanm -v --notest Moose --with-all-features
+#           cpanm -v --notest Test::Warnings --with-all-features
+#           cpanm -v --notest Test::Pod::Coverage --with-all-features
+#           cpanm -v --notest Devel::Cycle --with-all-features
+#           cpanm -v --notest SQL::Translator --with-all-features
+#           cpanm -v --notest Config::IniFiles --with-all-features
 #          cpanm -v --sudo --installdeps --notest . --with-all-features
       
-#       - uses: perl-actions/install-with-cpanm@v1
-#         name: Install dependencies
-#         with:
-#           cpanfile: "cpanfile"
+      - uses: perl-actions/install-with-cpanm@v1
+        name: Install dependencies
+        with:
+          cpanfile: "cpanfile"
+          sudo: false
+          verbose: true
 #           install: |
 #             Devel::Cover
 #             Devel::Cover::Report::Coveralls
@@ -97,8 +112,7 @@ jobs:
 #             Devel::Cycle
 #             Test::Warnings
 #             DBD::SQLite
-#             JSON 
-#           verbose: true
+#             JSON
       
 #       - name: Copy mysql/sqlite conf files
 #         run: |
