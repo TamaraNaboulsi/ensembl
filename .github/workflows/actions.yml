@@ -13,7 +13,7 @@ jobs:
     
     services:
       mysql:
-        image: mysql:latest
+        image: mysql:5.6
         ports:
           - 3306
         env:
@@ -104,7 +104,6 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           apt update && apt install sudo
-          sudo service mysql start
 #          mysql -e "CREATE USER 'github'@'%'" -u root -h localhost -P ${{ job.services.mysql.ports['3306'] }}
 #          mysql -e 'GRANT ALL PRIVILEGES ON *.* TO "github"@"%"' -u root -h 127.0.0.1 -P ${{ job.services.mysql.ports['3306'] }}
 #          mysql -e 'SET GLOBAL local_infile=1' -u root -h 127.0.0.1 -P ${{ job.services.mysql.ports['3306'] }}
