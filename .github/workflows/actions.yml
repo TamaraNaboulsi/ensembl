@@ -78,7 +78,10 @@ jobs:
       
       - name: Install dependencies
         run: |
-          cpanm -v --sudo --installdeps --notest . --with-all-features
+          cpanm -v --sudo --notest Text::CSV --with-all-features
+          cpanm -v --sudo --notest Perl::Critic::Moose --with-all-features
+#          , Config::General, Text::Glob, Perl::Critic::Utils, DBI, Test::MockObject, DBD::mysql, PadWalker, Tie::IxHash, Test::Perl::Critic, DBIx::Class, Moose, Test::Warnings, Test::Pod::Coverage, Devel::Cycle, SQL::Translator, Config::IniFiles
+#          cpanm -v --sudo --installdeps --notest . --with-all-features
       
 #       - uses: perl-actions/install-with-cpanm@v1
 #         name: Install dependencies
