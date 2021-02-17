@@ -107,6 +107,7 @@ jobs:
           #DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           mysql --version
+          sudo apt-get install libxml2-utils
           sudo systemctl start mysql
           mysql -u root -h localhost
 #          mysql -e "CREATE USER 'github'@'%'" -u root -h localhost -P ${{ job.services.mysql.ports['3306'] }}
