@@ -11,14 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     container: ${{ matrix.container }}
     
-    services:
-      mysql:
-        image: mysql:5.6
-        ports:
-          - 3306
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+#     services:
+#       mysql:
+#         image: mysql:5.6
+#         ports:
+#           - 3306
+#         env:
+#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#           MYSQL_USER: "github"
+#           MYSQL_PASSWORD: ""
+#         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     
     strategy:
       matrix:
@@ -104,8 +106,6 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           mysql --version
-          apt update && apt install sudo
-          sudo service mysql start
 #          /usr/bin/mysql start
 #          sudo service mysql stop
 #          sudo /etc/init.d/mysql start
