@@ -107,6 +107,7 @@ jobs:
           #DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           mysql --version
+          apt update && apt install sudo
           sudo apt-get install libxml2-utils
           sudo systemctl start mysql
           mysql -u root -h localhost
