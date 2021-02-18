@@ -106,7 +106,7 @@ jobs:
 # #           MYSQL_ALLOW_EMPTY_PASSWORD: yes
 #           #DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
-          mysqladmin -u root -P ${{ job.services.mysql.ports['3306'] }} status
+          mysqladmin -u root -h 127.0.0.1 -P ${{ job.services.mysql.ports['3306'] }} status
 #          mysql -u root -h 127.0.0.1 -P ${{ job.services.mysql.ports['3306'] }}
 #         mysql -u root
 
