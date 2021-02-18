@@ -101,14 +101,21 @@ jobs:
           cp travisci/testdb.conf.actions.mysql testdb.conf.mysql
           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
       
-      - name: Configure mysql
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          #DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-        run: |
-          mysql --version
-          apt update && apt install sudo
-          sudo /etc/init.d/mysql start
+      - name: Setup mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3800 # Optional, default value is 3306. The port of host
+          container port: 3307 # Optional, default value is 3306. The port of container
+          #mysql database: 'some_test' # Optional, default value is "test". The specified database which will be create
+          mysql user: 'github' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+          mysql password: 'secret' # Required if "mysql user" exists. The password for the "mysql user"
+      
+#       - name: Configure mysql
+#         env:
+#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#           #DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+#         run: |
+
  #         sudo /usr/bin/mysql start
 #          mysql -u root -h localhost
 #          mysql -e "CREATE USER 'github'@'%'" -u root -h localhost -P ${{ job.services.mysql.ports['3306'] }}
