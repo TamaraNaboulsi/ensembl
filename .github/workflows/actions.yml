@@ -103,7 +103,7 @@ jobs:
       
       - uses: shogo82148/actions-setup-mysql@v1
         with:
-          mysql-version: '8.0'
+          mysql-version: '5.6'
       - run: mysql -uroot -h127.0.0.1 -e 'SELECT version()'    
 #       - name: Configure mysql
 # # #         env:
