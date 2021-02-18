@@ -114,7 +114,7 @@ jobs:
 #         env:
 #           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           #DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-        run: mysql -u root -h localhost
+        run: mysql -u root -h localhost -P 3307
 
  #         sudo /usr/bin/mysql start
 #          mysql -u root -h localhost
