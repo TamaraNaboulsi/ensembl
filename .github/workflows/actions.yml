@@ -105,6 +105,7 @@ jobs:
         run: |
           mysql --version
           which mysql
+          service mysql status
 #           service mysql start
 #           mysql -u root -h localhost -p root
 #          service mysql start
