@@ -107,10 +107,9 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
-          mysql --version
-          which mysql
           service mysql start
-          mysql -u root -h localhost
+          mysql -e "CREATE USER 'github'@'%'" -u root -h localhost
+#          mysql -e 'GRANT ALL PRIVILEGES ON *.* TO "github"@"%"' -u root -h localhost
 #          mysql -u root -h mysql -P ${{ job.services.mysql.ports['3306'] }}
 #          service mysql status
 #           service mysql start
