@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         perl: ['5.14', '5.26', '5.30']
-        env: [COVERALLS=true DB=mysql, COVERALLS=false DB=mysql, COVERALLS=false DB=sqlite]
+        #env: [COVERALLS=true DB=mysql, COVERALLS=false DB=mysql, COVERALLS=false DB=sqlite]
         COVERALLS: [true, false]
         DB: [mysql, sqlite]
         container: ['tamaranaboulsi/test-repo:perl-5.014.004-custom']
