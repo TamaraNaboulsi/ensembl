@@ -43,6 +43,10 @@ jobs:
             COVERALLS: true
             DB: mysql
             #env: COVERALLS=true DB=mysql
+          - perl: '5.14'
+            COVERALLS: true
+            DB: sqlite
+            #env: COVERALLS=true DB=sqlite
           - perl: '5.26'
             COVERALLS: false
             DB: sqlite
@@ -50,6 +54,10 @@ jobs:
           - perl: '5.26'
             COVERALLS: false
             DB: mysql
+            #env: COVERALLS=false DB=mysql
+          - perl: '5.26'
+            COVERALLS: true
+            DB: sqlite
             #env: COVERALLS=false DB=mysql
           - perl: '5.30'
             COVERALLS: false
@@ -64,6 +72,11 @@ jobs:
           - perl: '5.30'
             COVERALLS: true
             DB: mysql
+            container: 'tamaranaboulsi/test-repo:perl-5.014.004-custom'
+            #env: COVERALLS=true DB=mysql
+          - perl: '5.30'
+            COVERALLS: true
+            DB: sqlite
             container: 'tamaranaboulsi/test-repo:perl-5.014.004-custom'
             #env: COVERALLS=true DB=mysql
     
