@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     container: ${{ matrix.container }}
     
-    services:
-      mysql:
-        image: mysql:latest
-        ports:
-          - 3306
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+#     services:
+#       mysql:
+#         image: mysql:latest
+#         ports:
+#           - 3306
+#         env:
+#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     
     strategy:
       matrix:
@@ -56,9 +56,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       
-#       - name: Before Script
-#         run: |
-#           apt-get update
+      - name: Before Script
+        run: |
+          apt update && apt install sudo
+          sudo apt install mysql-server
 #           apt-get install -y default-libmysqlclient-dev default-mysql-client
 #           apt-get install -y libssl-dev sqlite3
 #          apt-get install -y build-essential cpanminus git
