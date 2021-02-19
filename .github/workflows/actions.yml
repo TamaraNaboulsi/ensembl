@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     container: ${{ matrix.container }}
     
-#     services:
-#       mysql:
-#         image: mysql:latest
-#         ports:
-#           - 3306
-#         env:
-#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-#         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+    services:
+      mysql:
+        image: mysql:latest
+        ports:
+          - 3306
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     
     strategy:
       matrix:
@@ -59,7 +59,8 @@ jobs:
       - name: Before Script
         run: |
           apt update && apt install sudo
-          sudo apt install mysql
+          sudo apt update
+#          sudo apt install mysql
 #           apt-get install -y default-libmysqlclient-dev default-mysql-client
 #           apt-get install -y libssl-dev sqlite3
 #          apt-get install -y build-essential cpanminus git
@@ -104,8 +105,9 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
-          mysql --version
-          which mysql
+          sudo systemctl start mariadb
+#          mysql --version
+#          which mysql
 #          mysql -u root -h mysql -P ${{ job.services.mysql.ports['3306'] }}
 #          service mysql status
 #           service mysql start
