@@ -106,7 +106,7 @@ jobs:
         run: |
           mysql --version
           which mysql
-          mysql -u root -h mysql -P ${{ job.services.mysql.ports['3306'] }}
+#          mysql -u root -h mysql -P ${{ job.services.mysql.ports['3306'] }}
 #          service mysql status
 #           service mysql start
 #           mysql -u root -h localhost -p root
