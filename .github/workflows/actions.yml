@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     container: ${{ matrix.container }}
     
-    services:
-      mysql:
-        image: mysql:latest
-        ports:
-          - 3306
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+#     services:
+#       mysql:
+#         image: mysql:latest
+#         ports:
+#           - 3306
+#         env:
+#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     
     strategy:
       matrix:
@@ -60,7 +60,8 @@ jobs:
         run: |
           apt update && apt install sudo
           sudo apt update
-          apt-cache search mysql-server
+          apt-get install -y default-mysql-server
+#          apt-cache search mysql-server
 #          sudo apt install mysql
 #           apt-get install -y default-libmysqlclient-dev default-mysql-client
 #           apt-get install -y libssl-dev sqlite3
