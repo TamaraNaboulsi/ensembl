@@ -103,13 +103,12 @@ jobs:
           cp travisci/testdb.conf.actions.mysql testdb.conf.mysql
           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
       
-#       - name: Configure mysql
-#         env:
-#           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-#         run: |
-#           sudo systemctl start mariadb
-#          mysql --version
-#          which mysql
+      - name: Configure mysql
+        env:
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+        run: |
+          mysql --version
+          which mysql
 #          mysql -u root -h mysql -P ${{ job.services.mysql.ports['3306'] }}
 #          service mysql status
 #           service mysql start
