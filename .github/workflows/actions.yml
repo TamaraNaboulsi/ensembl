@@ -144,4 +144,6 @@ jobs:
           mysql -e "SET GLOBAL local_infile=1" -u root -h localhost
       
       - name: Run Test Suite
+        env:
+          DB: ${{ matrix.DB }}
         run: ./travisci/harness.sh
