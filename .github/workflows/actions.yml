@@ -148,4 +148,5 @@ jobs:
         env:
           DB: ${{ matrix.DB }}
           COVERALLS: ${{ matrix.COVERALLS }}
+          USER: 'github'
         run: ./travisci/harness.sh
