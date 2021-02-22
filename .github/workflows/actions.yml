@@ -80,8 +80,8 @@ jobs:
             container: 'tamaranaboulsi/test-repo:perl-5.014.004-custom'
             #env: COVERALLS=true DB=mysql
     
-    env:
-      AUTH_TOKEN: Ju069PzB8QZG3302emIhyCEEQfVfVsiXy0nGcR6hue+vW9nE82NnOEZHbZIwUCXEjUaZRMVQ31Em70Ky22OrLK4D59bs2ClH21u8URDGD/cn7JNPGWFrgxuaXQKMQrw72doeB0+w1+ShURtqM41vITjinyU3y34RZ1NcbDwYSZI=
+#     env:
+#       AUTH_TOKEN: Ju069PzB8QZG3302emIhyCEEQfVfVsiXy0nGcR6hue+vW9nE82NnOEZHbZIwUCXEjUaZRMVQ31Em70Ky22OrLK4D59bs2ClH21u8URDGD/cn7JNPGWFrgxuaXQKMQrw72doeB0+w1+ShURtqM41vITjinyU3y34RZ1NcbDwYSZI=
 
     steps:
       - name: Checkout
@@ -146,4 +146,5 @@ jobs:
       - name: Run Test Suite
         env:
           DB: ${{ matrix.DB }}
+          COVERALLS: ${{ matrix.COVERALLS }}
         run: ./travisci/harness.sh
