@@ -22,6 +22,9 @@ use Bio::EnsEMBL::Test::MultiTestDB;
 
 ok(1);
 
+use Data::Dumper;
+print Dumper $ENV;
+
 # Database will be dropped when this
 # object goes out of scope
 my $ens_test = Bio::EnsEMBL::Test::MultiTestDB->new;
