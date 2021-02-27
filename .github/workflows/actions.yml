@@ -118,16 +118,17 @@ jobs:
           cpanfile: "cpanfile"
           sudo: false
           verbose: true
-          install: |
-            Devel::Cover
-            Devel::Cover::Report::Coveralls
-            Test::Exception
-            Moose
-            Devel::Cycle
-            Test::Warnings
-            DBD::SQLite
-            JSON
-            namespace::autoclean
+#           install: |
+#             Devel::Cover
+#             Devel::Cover::Report::Coveralls
+#             Test::Exception
+#             Moose
+#             Devel::Cycle
+#             Test::Warnings
+#             DBD::SQLite
+#             JSON
+#             namespace::autoclean
+#             Config::General
       
       - name: Copy mysql/sqlite conf files
         run: |
