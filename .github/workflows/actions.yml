@@ -132,6 +132,7 @@ jobs:
             DBIx::Class::Schema
             Text::Glob
             Text::CSV
+            SQL::Translator
       
       - name: Copy mysql/sqlite conf files
         run: |
