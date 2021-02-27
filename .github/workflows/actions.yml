@@ -130,6 +130,7 @@ jobs:
             namespace::autoclean
             Config::General
             DBIx::Class::Schema
+            Text::Glob
       
       - name: Copy mysql/sqlite conf files
         run: |
