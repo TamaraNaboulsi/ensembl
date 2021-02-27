@@ -131,6 +131,7 @@ jobs:
             Config::General
             DBIx::Class::Schema
             Text::Glob
+            Text::CSV
       
       - name: Copy mysql/sqlite conf files
         run: |
