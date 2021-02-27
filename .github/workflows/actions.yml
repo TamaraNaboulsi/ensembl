@@ -129,6 +129,7 @@ jobs:
             JSON
             namespace::autoclean
             Config::General
+            DBIx::Class::Schema
       
       - name: Copy mysql/sqlite conf files
         run: |
