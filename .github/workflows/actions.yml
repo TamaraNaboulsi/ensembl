@@ -127,6 +127,7 @@ jobs:
             Test::Warnings
             DBD::SQLite
             JSON
+            namespace::autoclean
       
       - name: Copy mysql/sqlite conf files
         run: |
