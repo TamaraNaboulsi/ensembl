@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ENSDIR="${ENSDIR:-$PWD}"
+echo "dir: $ENSDIR"
 
 export PERL5LIB=$ENSDIR/bioperl-live:$ENSDIR/ensembl-test/modules:$PWD/modules:$ENSDIR/ensembl-io/modules:$ENSDIR/ensembl-variation/modules:$ENSDIR/ensembl-compara/modules:$PWD/misc-scripts/xref_mapping
 export TEST_AUTHOR=$USER
@@ -29,10 +30,8 @@ if [ "$COVERALLS" = 'true' ]; then
     rt=$(($rt+$?))
   fi
 else
-  echo "rt before: $rt"
   perl $ENSDIR/ensembl-test/scripts/runtests.pl -verbose modules/t $SKIP_TESTS
   rt=$?
-  echo "rt after: $rt"
   if [ "$DB" = 'mysql' ]; then
     perl $ENSDIR/ensembl-test/scripts/runtests.pl -verbose misc-scripts/xref_mapping/t
     rt=$(($rt+$?))
