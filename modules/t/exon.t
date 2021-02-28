@@ -28,7 +28,7 @@ use Bio::EnsEMBL::Transcript;
 use Bio::EnsEMBL::Translation;
 use Bio::EnsEMBL::Exon;
 
-our $verbose = 1; #set to 1 to turn on debug printouts
+our $verbose = 0; #set to 1 to turn on debug printouts
 
 my $multi = Bio::EnsEMBL::Test::MultiTestDB->new();
 
