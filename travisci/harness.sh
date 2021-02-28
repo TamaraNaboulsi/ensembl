@@ -1,6 +1,8 @@
 #!/bin/bash
 
+echo "dir: $ENSDIR --- pwd: $PWD"
 ENSDIR="${ENSDIR:-$PWD}"
+echo "new dir: $ENSDIR"
 
 export PERL5LIB=$ENSDIR/bioperl-live:$ENSDIR/ensembl-test/modules:$PWD/modules:$ENSDIR/ensembl-io/modules:$ENSDIR/ensembl-variation/modules:$ENSDIR/ensembl-compara/modules:$PWD/misc-scripts/xref_mapping
 export TEST_AUTHOR=$USER
