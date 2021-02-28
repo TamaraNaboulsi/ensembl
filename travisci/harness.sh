@@ -33,10 +33,10 @@ if [ "$COVERALLS" = 'true' ]; then
 else
   perl $ENSDIR/ensembl-test/scripts/runtests.pl -verbose modules/t $SKIP_TESTS
   rt=$?
-  if [ "$DB" = 'mysql' ]; then
-    perl $ENSDIR/ensembl-test/scripts/runtests.pl -verbose misc-scripts/xref_mapping/t
-    rt=$(($rt+$?))
-  fi
+#   if [ "$DB" = 'mysql' ]; then
+#     perl $ENSDIR/ensembl-test/scripts/runtests.pl -verbose misc-scripts/xref_mapping/t
+#     rt=$(($rt+$?))
+#   fi
 fi
 
 if [ $rt -eq 0 ]; then
