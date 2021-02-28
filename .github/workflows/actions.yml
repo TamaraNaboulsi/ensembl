@@ -99,10 +99,10 @@ jobs:
 #           apt-get install -y libssl-dev sqlite3
 #          apt-get install -y build-essential cpanminus git
       
-#       - name: Perl ${{ matrix.perl }} Setup
-#         uses: shogo82148/actions-setup-perl@v1
-#         with:
-#           perl-version: ${{ matrix.perl }}
+      - name: Perl ${{ matrix.perl }} Setup
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl }}
       
       - name: Clone repos
         run: |
