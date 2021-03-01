@@ -13,8 +13,8 @@ jobs:
     
     strategy:
       matrix:
-        #perl: ['5.14', '5.26', '5.30']
-        perl: ['5.14', '5.30']
+        perl: ['5.14', '5.26', '5.30']
+        #perl: ['5.14', '5.30']
         COVERALLS: [true, false]
         DB: [mysql, sqlite]
         container: ['tamaranaboulsi/test-repo:perl-5.014.004-custom']
@@ -34,15 +34,15 @@ jobs:
           - perl: '5.14'
             COVERALLS: true
             DB: sqlite
-#           - perl: '5.26'
-#             COVERALLS: false
-#             DB: sqlite
-#           - perl: '5.26'
-#             COVERALLS: false
-#             DB: mysql
-#           - perl: '5.26'
-#             COVERALLS: true
-#             DB: sqlite
+          - perl: '5.26'
+            COVERALLS: false
+            DB: sqlite
+          - perl: '5.26'
+            COVERALLS: false
+            DB: mysql
+          - perl: '5.26'
+            COVERALLS: true
+            DB: sqlite
           - perl: '5.30'
             COVERALLS: false
             DB: sqlite
@@ -128,4 +128,6 @@ jobs:
 
       - if: ${{ matrix.COVERALLS }}
         name: Coveralls
-        run: echo "running coveralls"
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
