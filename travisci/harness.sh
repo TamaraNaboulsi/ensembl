@@ -8,7 +8,7 @@ export TEST_AUTHOR=$USER
 if [ "$DB" = 'mysql' ]; then
     (cd modules/t && ln -sf MultiTestDB.conf.mysql MultiTestDB.conf)
     ln -sf testdb.conf.mysql testdb.conf
-    SKIP_TESTS="--skip exon.t,gene.t"
+    SKIP_TESTS="--skip gene.t"
 elif [ "$DB" = 'sqlite' ]; then
     (cd modules/t && ln -sf MultiTestDB.conf.SQLite MultiTestDB.conf)
     ln -sf testdb.conf.SQLite testdb.conf
@@ -22,26 +22,26 @@ ln -sf ../../../modules/t/MultiTestDB.conf misc-scripts/xref_mapping/t/
 echo "Running test suite"
 rt=0
 if [ "$COVERALLS" = 'true' ]; then
-  PERL5OPT='-MDevel::Cover=+ignore,bioperl,+ignore,ensembl-test,+ignore,ensembl-variation,ensembl-compara' perl $ENSDIR/ensembl-test/scripts/runtests.pl -verbose modules/t $SKIP_TESTS
+  PERL5OPT='-MDevel::Cover=+ignore,bioperl,+ignore,ensembl-test,+ignore,ensembl-variation,ensembl-compara' perl $ENSDIR/ensembl-test/scripts/runtests.pl --verbose modules/t $SKIP_TESTS
   rt=$?
   if [ "$DB" = 'mysql' ]; then
-    PERL5OPT='-MDevel::Cover=+ignore,bioperl,+ignore,ensembl-test,+ignore,ensembl-variation,ensembl-compara' perl $ENSDIR/ensembl-test/scripts/runtests.pl -verbose misc-scripts/xref_mapping/t
+    PERL5OPT='-MDevel::Cover=+ignore,bioperl,+ignore,ensembl-test,+ignore,ensembl-variation,ensembl-compara' perl $ENSDIR/ensembl-test/scripts/runtests.pl --verbose misc-scripts/xref_mapping/t
     rt=$(($rt+$?))
   fi
 else
-  perl $ENSDIR/ensembl-test/scripts/runtests.pl -verbose modules/t $SKIP_TESTS
+  perl $ENSDIR/ensembl-test/scripts/runtests.pl --verbose modules/t $SKIP_TESTS
   rt=$?
   if [ "$DB" = 'mysql' ]; then
-    perl $ENSDIR/ensembl-test/scripts/runtests.pl -verbose misc-scripts/xref_mapping/t
+    perl $ENSDIR/ensembl-test/scripts/runtests.pl --verbose misc-scripts/xref_mapping/t
     rt=$(($rt+$?))
   fi
 fi
 
 if [ $rt -eq 0 ]; then
-  if [ "$COVERALLS" = 'true' ]; then
-    echo "Running Devel::Cover coveralls report"
-    cover --nosummary -report coveralls
-  fi
+#   if [ "$COVERALLS" = 'true' ]; then
+#     echo "Running Devel::Cover coveralls report"
+#     cover --nosummary -report coveralls
+#   fi
   exit $?
 else
   exit 255
