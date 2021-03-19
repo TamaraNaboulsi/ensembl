@@ -10,26 +10,31 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
     
+    strategy:
+      matrix:
+        perl: ['5.14', '5.26', '5.30']
+#         COVERALLS: [true, false]
+#         DB: [mysql, sqlite]
+    
     steps:
       - name: Checkout
         uses: actions/checkout@master
       
-      - name: Set up perl
+      - name: Set up perl ${{ matrix.perl }}
         uses: shogo82148/actions-setup-perl@v1
         with:
-          perl-version: '5.14'
+          perl-version: ${{ matrix.perl }}
       
-#       - name: Clone repos
-#         run: |
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-test.git
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-io.git
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-variation.git
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
-#           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
+      - name: Clone repos
+        run: |
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-test.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-io.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-variation.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
+          git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
       
-#       - name: Install dependencies
-# #         run: cpanm --installdeps .
-#         run: cpanm -v --sudo --installdeps --notest . --with-all-features
+      - name: Install dependencies
+        run: cpanm -v --sudo --installdeps --notest . --with-all-features
 
 # jobs:
 #   run-tests:
