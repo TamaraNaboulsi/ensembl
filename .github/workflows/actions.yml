@@ -10,15 +10,14 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
     
-    services:
-      mysql:
-          image: mysql:latest
-          env:
-              MYSQL_ALLOW_EMPTY_PASSWORD: yes
-#               MYSQL_DATABASE: laravel_tags
-          ports:
-              - 3306
-          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+#     services:
+#       mysql:
+#           image: mysql:latest
+#           env:
+#               MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#           ports:
+#               - 3306
+#           options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     strategy:
       matrix:
@@ -29,6 +28,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
+      
+      - name: Before Script
+        run: |
+          sudo apt update
+          apt-get install -y default-mysql-server
       
       - name: Set up perl ${{ matrix.perl }}
         uses: shogo82148/actions-setup-perl@v1
@@ -58,8 +62,8 @@ jobs:
           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
       
       - name: Configure mysql
-        env:
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+#         env:
+#           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           service mysql start
           mysql -e "CREATE USER 'github'@'%'" -u root -h localhost
