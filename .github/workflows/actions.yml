@@ -10,6 +10,16 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
     
+    services:
+      mysql:
+          image: mysql:latest
+          env:
+              MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#               MYSQL_DATABASE: laravel_tags
+          ports:
+              - 3306
+          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     strategy:
       matrix:
         perl: ['5.14', '5.26', '5.30']
@@ -38,6 +48,7 @@ jobs:
           cpanm -v --sudo --installdeps --notest . --with-all-features
           cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
           cpanm -n --sudo DBD::SQLite JSON
+          perl --version
       
       - name: Copy mysql/sqlite conf files
         run: |
@@ -45,6 +56,14 @@ jobs:
           cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
           cp travisci/testdb.conf.actions.mysql testdb.conf.mysql
           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
+      
+      - name: Configure mysql
+        env:
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+        run: |
+          mysql -e "CREATE USER 'github'@'%'" -u root -h localhost
+          mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -h localhost
+          mysql -e "SET GLOBAL local_infile=1" -u root -h localhost
 
 # jobs:
 #   run-tests:
