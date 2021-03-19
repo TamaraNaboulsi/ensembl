@@ -8,7 +8,7 @@ export TEST_AUTHOR=$USER
 if [ "$DB" = 'mysql' ]; then
     (cd modules/t && ln -sf MultiTestDB.conf.mysql MultiTestDB.conf)
     ln -sf testdb.conf.mysql testdb.conf
-    SKIP_TESTS="--skip gene.t"
+    SKIP_TESTS="--skip exon.t,gene.t"
 elif [ "$DB" = 'sqlite' ]; then
     (cd modules/t && ln -sf MultiTestDB.conf.SQLite MultiTestDB.conf)
     ln -sf testdb.conf.SQLite testdb.conf
