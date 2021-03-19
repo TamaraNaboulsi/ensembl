@@ -34,7 +34,17 @@ jobs:
           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
       
       - name: Install dependencies
-        run: cpanm -v --sudo --installdeps --notest . --with-all-features
+        run: |
+          cpanm -v --sudo --installdeps --notest . --with-all-features
+          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+          cpanm -n --sudo DBD::SQLite JSON
+      
+      - name: Copy mysql/sqlite conf files
+        run: |
+          cp travisci/MultiTestDB.conf.actions.mysql modules/t/MultiTestDB.conf.mysql
+          cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
+          cp travisci/testdb.conf.actions.mysql testdb.conf.mysql
+          cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
 
 # jobs:
 #   run-tests:
