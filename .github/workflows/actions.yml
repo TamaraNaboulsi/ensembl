@@ -22,7 +22,7 @@ jobs:
       
       - name: Before Script
         run: |
-          service mysql start
+          sudo service mysql start
       
       - name: Set up perl ${{ matrix.perl }}
         uses: shogo82148/actions-setup-perl@v1
