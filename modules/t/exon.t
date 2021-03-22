@@ -116,40 +116,40 @@ ok($exon->dbID() && $exon->adaptor == $exonad);
 is($exon->feature_so_acc, 'SO:0000147', 'Exon feature SO acc is correct (exon)');
 is($exon->feature_so_term, 'exon', 'Exon feature SO term is correct (exon)');
 
-# # now test fetch_by_dbID
+# now test fetch_by_dbID
 
-# my $newexon = $exonad->fetch_by_dbID($exon->dbID);
+my $newexon = $exonad->fetch_by_dbID($exon->dbID);
 
-# ok($newexon);
-
-
-
-# debug("exon chr start  = " . $exon->start);
-# debug("exon chr end    = " . $exon->end);
-# debug("exon chr strand = " . $exon->strand);
-
-# debug("newexon start  = " . $newexon->start());
-# debug("newexon end    = " . $newexon->end());
-# debug("newexon strand = " . $newexon->strand());
-
-# ok($newexon->start == 30811999 &&
-#    $newexon->end == 30812399 &&
-#    $newexon->strand==1);
+ok($newexon);
 
 
-# #
-# # Test transform to another slice
-# #
-# $slice = $exon->slice();
-# $slice = $db->get_SliceAdaptor->fetch_by_region('chromosome',
-#                                          $slice->seq_region_name,
-#                                          $slice->start + $exon->start - 11,
-#                                          $slice->start + $exon->end + 9);
-# $exon = $exon->transfer($slice);
-# debug("exon start  = " . $exon->start);
-# debug("exon end    = " . $exon->end);
-# debug("exon strand = " . $exon->strand);
-# ok($exon->start == 11 && $exon->end == 411 && $exon->strand==1);
+
+debug("exon chr start  = " . $exon->start);
+debug("exon chr end    = " . $exon->end);
+debug("exon chr strand = " . $exon->strand);
+
+debug("newexon start  = " . $newexon->start());
+debug("newexon end    = " . $newexon->end());
+debug("newexon strand = " . $newexon->strand());
+
+ok($newexon->start == 30811999 &&
+   $newexon->end == 30812399 &&
+   $newexon->strand==1);
+
+
+#
+# Test transform to another slice
+#
+$slice = $exon->slice();
+$slice = $db->get_SliceAdaptor->fetch_by_region('chromosome',
+                                         $slice->seq_region_name,
+                                         $slice->start + $exon->start - 11,
+                                         $slice->start + $exon->end + 9);
+$exon = $exon->transfer($slice);
+debug("exon start  = " . $exon->start);
+debug("exon end    = " . $exon->end);
+debug("exon strand = " . $exon->strand);
+ok($exon->start == 11 && $exon->end == 411 && $exon->strand==1);
 
 
 # #
