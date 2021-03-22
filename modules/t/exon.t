@@ -79,42 +79,42 @@ ok( test_getter_setter( $exon, "modified_date", time() ));
 # Test that no parameter to is_coding() throws an exception
 throws_ok { $exon->is_coding() } qr/parameter is required/, "Transcript parameter required for is_coding()";
 
-# #
-# # find supporting evidence for the exon
-# #
-# my @evidence = ();
-# my @fs = ();
-# push @fs, @{$db->get_DnaAlignFeatureAdaptor->fetch_all_by_Slice($slice)};
-# push @fs, @{$db->get_ProteinAlignFeatureAdaptor->fetch_all_by_Slice($slice)};
+#
+# find supporting evidence for the exon
+#
+my @evidence = ();
+my @fs = ();
+push @fs, @{$db->get_DnaAlignFeatureAdaptor->fetch_all_by_Slice($slice)};
+push @fs, @{$db->get_ProteinAlignFeatureAdaptor->fetch_all_by_Slice($slice)};
 
-# while(my $f = shift @fs) {
-#   #debug("feature at: " . $f->start . "-" . $f->end);
-#   next if $f->start > $exon->end || $f->end < $exon->start;
-#   push(@evidence, $f);
-#   # cheat it into storing it again
-#   $f->dbID( undef );
-#   $f->adaptor( undef );
-# }
+while(my $f = shift @fs) {
+  #debug("feature at: " . $f->start . "-" . $f->end);
+  next if $f->start > $exon->end || $f->end < $exon->start;
+  push(@evidence, $f);
+  # cheat it into storing it again
+  $f->dbID( undef );
+  $f->adaptor( undef );
+}
 
-# my $count = scalar(@evidence);
-# debug("adding $count supporting features");
-# $exon->add_supporting_features(@evidence);
+my $count = scalar(@evidence);
+debug("adding $count supporting features");
+$exon->add_supporting_features(@evidence);
 
-# $multi->hide( "core", "exon", "supporting_feature", 
-# 	      "protein_align_feature", "dna_align_feature");
+$multi->hide( "core", "exon", "supporting_feature", 
+	      "protein_align_feature", "dna_align_feature");
 
-# # We get some 'datatype mismatch: bind param (11) 3.2e-42 as float' warnings
-# #
-# allow_warnings(1) if $db->dbc->driver() eq 'SQLite';
+# We get some 'datatype mismatch: bind param (11) 3.2e-42 as float' warnings
+#
+allow_warnings(1) if $db->dbc->driver() eq 'SQLite';
 
-# $exonad->store($exon);
+$exonad->store($exon);
 
-# allow_warnings(0) if $db->dbc->driver() eq 'SQLite';
+allow_warnings(0) if $db->dbc->driver() eq 'SQLite';
 
-# ok($exon->dbID() && $exon->adaptor == $exonad);
+ok($exon->dbID() && $exon->adaptor == $exonad);
 
-# is($exon->feature_so_acc, 'SO:0000147', 'Exon feature SO acc is correct (exon)');
-# is($exon->feature_so_term, 'exon', 'Exon feature SO term is correct (exon)');
+is($exon->feature_so_acc, 'SO:0000147', 'Exon feature SO acc is correct (exon)');
+is($exon->feature_so_term, 'exon', 'Exon feature SO term is correct (exon)');
 
 # # now test fetch_by_dbID
 
