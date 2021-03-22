@@ -79,6 +79,7 @@ jobs:
           cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
           cp travisci/testdb.conf.actions.mysql testdb.conf.mysql
           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
+          cp travisci/edited_runtests.pl ensembl-test/scripts/runtests.pl
       
       - name: Configure mysql
         run: |
