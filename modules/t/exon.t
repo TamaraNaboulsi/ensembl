@@ -182,34 +182,34 @@ debug("Got $se_count from newly stored exon");
 ok($se_count == $count);
 
 
-# # list_ functions
-# debug ("Exon->list_dbIDs");
-# my $ids = $exonad->list_dbIDs();
-# ok (@{$ids});
+# list_ functions
+debug ("Exon->list_dbIDs");
+my $ids = $exonad->list_dbIDs();
+ok (@{$ids});
 
-# debug ("Exon->list_stable_ids");
-# my $stable_ids = $exonad->list_stable_ids();
-# ok (@{$stable_ids});
+debug ("Exon->list_stable_ids");
+my $stable_ids = $exonad->list_stable_ids();
+ok (@{$stable_ids});
 
-# #hashkey
-# my $hashkey = $exon->hashkey();
-# debug($hashkey);
+#hashkey
+my $hashkey = $exon->hashkey();
+debug($hashkey);
 
-# ok($hashkey eq $exon->slice->name . '-' . $exon->start . '-' .
-#                $exon->end . '-' . $exon->strand . '-' . $exon->phase .
-#                '-' . $exon->end_phase);
+ok($hashkey eq $exon->slice->name . '-' . $exon->start . '-' .
+               $exon->end . '-' . $exon->strand . '-' . $exon->phase .
+               '-' . $exon->end_phase);
 
-# $multi->restore();
+$multi->restore();
 
 
-# # regression test
-# # make sure that sequence fetching and caching is not broken
-# $exon->stable_id('TestID');
-# my $first_seq = $exon->seq();
-# my $second_seq = $exon->seq();
+# regression test
+# make sure that sequence fetching and caching is not broken
+$exon->stable_id('TestID');
+my $first_seq = $exon->seq();
+my $second_seq = $exon->seq();
 
-# ok($first_seq->seq() && $first_seq->seq() eq $second_seq->seq());
-# ok($first_seq->display_id()  && $first_seq->display_id() eq $second_seq->display_id());
+ok($first_seq->seq() && $first_seq->seq() eq $second_seq->seq());
+ok($first_seq->display_id()  && $first_seq->display_id() eq $second_seq->display_id());
 
 
 # #
