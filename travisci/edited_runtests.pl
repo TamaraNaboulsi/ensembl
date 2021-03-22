@@ -94,7 +94,7 @@ eval {
   print Dumper $results;
 };
 
-clean();
+#clean();
 
 if($results->has_errors()) {
   my $count = $results->failed();
