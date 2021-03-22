@@ -381,43 +381,43 @@ SKIP: {
   ok( $species eq 'homo_sapiens' && $object_type eq 'Exon');
 }
 
-# # UTR and coding region tests. Only testing simple +ve orientation transcript ATMO but it is a start
-# # tests are based on offsetted coordinates from ENST00000000233 in release 67
-# {
-#   my $base_cs = Bio::EnsEMBL::CoordSystem->new(-NAME => 'chromosome', -RANK => 1);
-#   my $base_slice = Bio::EnsEMBL::Slice->new(-COORD_SYSTEM => $base_cs, -SEQ_REGION_NAME => 'a', -STRAND => 1, -START => 1, -END => 2000, -SEQ => 'A'x2000, -SEQ_REGION_LENGTH => 2000);
-#   my $base_transcript = Bio::EnsEMBL::Transcript->new(
-#     -START => 99,
-#     -END => 1759,
-#     -STRAND => 1,
-#     -SLICE => $base_slice
-#   );
+# UTR and coding region tests. Only testing simple +ve orientation transcript ATMO but it is a start
+# tests are based on offsetted coordinates from ENST00000000233 in release 67
+{
+  my $base_cs = Bio::EnsEMBL::CoordSystem->new(-NAME => 'chromosome', -RANK => 1);
+  my $base_slice = Bio::EnsEMBL::Slice->new(-COORD_SYSTEM => $base_cs, -SEQ_REGION_NAME => 'a', -STRAND => 1, -START => 1, -END => 2000, -SEQ => 'A'x2000, -SEQ_REGION_LENGTH => 2000);
+  my $base_transcript = Bio::EnsEMBL::Transcript->new(
+    -START => 99,
+    -END => 1759,
+    -STRAND => 1,
+    -SLICE => $base_slice
+  );
   
-#   my $start_exon = Bio::EnsEMBL::Exon->new(-START => 99, -END => 319, -STRAND => 1, -STABLE_ID => 'Exon1', -SLICE => $base_slice);
-#   throws_ok { $start_exon->rank($base_transcript) } qr/does not have/, "No exons in transcript";
-#   $base_transcript->add_Exon($start_exon);
-#   is ($start_exon->rank($base_transcript), 1, "Start exon in position 1");
-#   my $end_exon = Bio::EnsEMBL::Exon->new(-START => 1267, -END => 1759, -STRAND => 1, -STABLE_ID => 'Exon2', -SLICE => $base_slice);
-#   throws_ok { $end_exon->rank($base_transcript) } qr/does not belong/, "Exon does not belong to transcript";
-#   $base_transcript->add_Exon($end_exon);
+  my $start_exon = Bio::EnsEMBL::Exon->new(-START => 99, -END => 319, -STRAND => 1, -STABLE_ID => 'Exon1', -SLICE => $base_slice);
+  throws_ok { $start_exon->rank($base_transcript) } qr/does not have/, "No exons in transcript";
+  $base_transcript->add_Exon($start_exon);
+  is ($start_exon->rank($base_transcript), 1, "Start exon in position 1");
+  my $end_exon = Bio::EnsEMBL::Exon->new(-START => 1267, -END => 1759, -STRAND => 1, -STABLE_ID => 'Exon2', -SLICE => $base_slice);
+  throws_ok { $end_exon->rank($base_transcript) } qr/does not belong/, "Exon does not belong to transcript";
+  $base_transcript->add_Exon($end_exon);
 
-#   $base_transcript->translation(Bio::EnsEMBL::Translation->new(
-#     -START_EXON => $start_exon,
-#     -SEQ_START => 155,
-#     -END_EXON => $end_exon,
-#     -SEQ_END => 87
-#   ));
+  $base_transcript->translation(Bio::EnsEMBL::Translation->new(
+    -START_EXON => $start_exon,
+    -SEQ_START => 155,
+    -END_EXON => $end_exon,
+    -SEQ_END => 87
+  ));
 
-#   is($start_exon->cdna_coding_start($base_transcript), 155, 'Coding starts at 155bp into the first exon');
-#   is($start_exon->cdna_coding_end($base_transcript), 221, 'Coding ends at 221bp in the first exon (at the exon end)');
-#   is($start_exon->coding_region_start($base_transcript), (99+155)-1, 'Coding starts at an offset of 99bp plus coding start');
-#   is($start_exon->coding_region_end($base_transcript), (99+221)-1, 'Coding region end is the offset of 99bp with the exon length');
+  is($start_exon->cdna_coding_start($base_transcript), 155, 'Coding starts at 155bp into the first exon');
+  is($start_exon->cdna_coding_end($base_transcript), 221, 'Coding ends at 221bp in the first exon (at the exon end)');
+  is($start_exon->coding_region_start($base_transcript), (99+155)-1, 'Coding starts at an offset of 99bp plus coding start');
+  is($start_exon->coding_region_end($base_transcript), (99+221)-1, 'Coding region end is the offset of 99bp with the exon length');
   
-#   is($end_exon->cdna_coding_start($base_transcript), 222, 'CDNA coding start in last exon should be first exon + 1bp');
-#   is($end_exon->cdna_coding_end($base_transcript), (222+87)-1, 'CDNA coding end should be 86 plus first exon length');
-#   is($end_exon->coding_region_start($base_transcript), 1267, 'Seq region location start is same as exon start');
-#   is($end_exon->coding_region_end($base_transcript), (1267+87)-1, 'Seq region location end is offsetted by exon coding length');
-# }
+  is($end_exon->cdna_coding_start($base_transcript), 222, 'CDNA coding start in last exon should be first exon + 1bp');
+  is($end_exon->cdna_coding_end($base_transcript), (222+87)-1, 'CDNA coding end should be 86 plus first exon length');
+  is($end_exon->coding_region_start($base_transcript), 1267, 'Seq region location start is same as exon start');
+  is($end_exon->coding_region_end($base_transcript), (1267+87)-1, 'Seq region location end is offsetted by exon coding length');
+}
 
 # # Checking the reverse strand. Taken from ENST00000321407 in E! 66 with 66
 # # API to check for regressions
