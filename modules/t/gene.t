@@ -59,130 +59,130 @@ debug("Gene->list_dbIDs");
 my $ids = $ga->list_dbIDs();
 ok(@{$ids});
 
-debug("Gene->list_stable_ids");
-my $stable_ids = $ga->list_stable_ids();
-ok(@{$stable_ids});
+# debug("Gene->list_stable_ids");
+# my $stable_ids = $ga->list_stable_ids();
+# ok(@{$stable_ids});
 
-debug("Gene->list_seq_region_ids");
-my $region_ids = $ga->list_seq_region_ids();
-ok(@{$region_ids});
+# debug("Gene->list_seq_region_ids");
+# my $region_ids = $ga->list_seq_region_ids();
+# ok(@{$region_ids});
 
-$gene = $ga->fetch_by_display_label("T9S4_HUMAN");
-ok($gene && $gene->dbID() == 18262);
+# $gene = $ga->fetch_by_display_label("T9S4_HUMAN");
+# ok($gene && $gene->dbID() == 18262);
 
-$gene = $ga->fetch_by_stable_id("ENSG00000171456");
-debug("Gene->fetch_by_stable_id()");
-ok($gene);
+# $gene = $ga->fetch_by_stable_id("ENSG00000171456");
+# debug("Gene->fetch_by_stable_id()");
+# ok($gene);
 
-my @date_time = gmtime($gene->created_date());
-ok($date_time[3] == 6 && $date_time[4] == 11 && $date_time[5] == 104);
+# my @date_time = gmtime($gene->created_date());
+# ok($date_time[3] == 6 && $date_time[4] == 11 && $date_time[5] == 104);
 
-@date_time = gmtime($gene->modified_date());
-ok($date_time[3] == 6 && $date_time[4] == 11 && $date_time[5] == 104);
+# @date_time = gmtime($gene->modified_date());
+# ok($date_time[3] == 6 && $date_time[4] == 11 && $date_time[5] == 104);
 
-debug("Gene dbID: " . $gene->dbID());
-ok($gene->dbID() == 18267);
+# debug("Gene dbID: " . $gene->dbID());
+# ok($gene->dbID() == 18267);
 
-debug("Gene start: " . $gene->start);
-ok($gene->start() == 30735607);
+# debug("Gene start: " . $gene->start);
+# ok($gene->start() == 30735607);
 
-debug("Gene end: " . $gene->end);
-ok($gene->end() == 30815178);
+# debug("Gene end: " . $gene->end);
+# ok($gene->end() == 30815178);
 
-debug("Gene external name: " . $gene->external_name);
-ok($gene->external_name eq "Q9H466");
+# debug("Gene external name: " . $gene->external_name);
+# ok($gene->external_name eq "Q9H466");
 
-debug("Gene external dbname: " . $gene->external_db);
-ok($gene->external_db eq "Uniprot/SPTREMBL");
+# debug("Gene external dbname: " . $gene->external_db);
+# ok($gene->external_db eq "Uniprot/SPTREMBL");
 
-debug("Gene display xref id: " . $gene->display_xref->dbID);
-ok($gene->display_xref->dbID() == 128324);
+# debug("Gene display xref id: " . $gene->display_xref->dbID);
+# ok($gene->display_xref->dbID() == 128324);
 
-is($gene->feature_so_acc, 'SO:0000704', 'Gene feature SO acc is correct (gene)');
-is($gene->feature_so_term, 'gene', 'Gene feature SO term is correct (gene)');
+# is($gene->feature_so_acc, 'SO:0000704', 'Gene feature SO acc is correct (gene)');
+# is($gene->feature_so_term, 'gene', 'Gene feature SO term is correct (gene)');
 
-# test the getters and setters
-ok(test_getter_setter($gene, "external_name", "banana"));
-ok(test_getter_setter($gene, "external_db",   "dummy"));
-ok(test_getter_setter($gene, "display_xref",  42));
-ok(test_getter_setter($gene, "created_date",  time()));
-ok(test_getter_setter($gene, "modified_date", time()));
+# # test the getters and setters
+# ok(test_getter_setter($gene, "external_name", "banana"));
+# ok(test_getter_setter($gene, "external_db",   "dummy"));
+# ok(test_getter_setter($gene, "display_xref",  42));
+# ok(test_getter_setter($gene, "created_date",  time()));
+# ok(test_getter_setter($gene, "modified_date", time()));
 
-my $links = $gene->get_all_DBLinks();
-debug("Links: " . scalar(@$links));
+# my $links = $gene->get_all_DBLinks();
+# debug("Links: " . scalar(@$links));
 
-ok(scalar @$links == 6);
+# ok(scalar @$links == 6);
 
-# now create a new gene ...
+# # now create a new gene ...
 
-my $sa = $db->get_SliceAdaptor();
+# my $sa = $db->get_SliceAdaptor();
 
-my $slice = $sa->fetch_by_region("chromosome", "20", 30_249_935, 31_254_640);
+# my $slice = $sa->fetch_by_region("chromosome", "20", 30_249_935, 31_254_640);
 
-debug("Slice from SliceAdaptor");
-ok($slice);
+# debug("Slice from SliceAdaptor");
+# ok($slice);
 
-my $analysis   = $db->get_AnalysisAdaptor->fetch_by_logic_name("ensembl");
-my $f_analysis = $db->get_AnalysisAdaptor->fetch_by_logic_name("Vertrna");
-debug("Analysis from AnalysisAdaptor");
-ok($analysis);
+# my $analysis   = $db->get_AnalysisAdaptor->fetch_by_logic_name("ensembl");
+# my $f_analysis = $db->get_AnalysisAdaptor->fetch_by_logic_name("Vertrna");
+# debug("Analysis from AnalysisAdaptor");
+# ok($analysis);
 
-$gene = Bio::EnsEMBL::Gene->new();
+# $gene = Bio::EnsEMBL::Gene->new();
 
-my $transcript1 = Bio::EnsEMBL::Transcript->new();
-$transcript1->analysis($analysis);
-my $transcript2 = Bio::EnsEMBL::Transcript->new();
-$transcript2->analysis($analysis);
+# my $transcript1 = Bio::EnsEMBL::Transcript->new();
+# $transcript1->analysis($analysis);
+# my $transcript2 = Bio::EnsEMBL::Transcript->new();
+# $transcript2->analysis($analysis);
 
-my $ex1 = Bio::EnsEMBL::Exon->new();
-my $ex2 = Bio::EnsEMBL::Exon->new();
-my $ex3 = Bio::EnsEMBL::Exon->new();
+# my $ex1 = Bio::EnsEMBL::Exon->new();
+# my $ex2 = Bio::EnsEMBL::Exon->new();
+# my $ex3 = Bio::EnsEMBL::Exon->new();
 
-my $translation1 = Bio::EnsEMBL::Translation->new();
-my $translation2 = Bio::EnsEMBL::Translation->new();
+# my $translation1 = Bio::EnsEMBL::Translation->new();
+# my $translation2 = Bio::EnsEMBL::Translation->new();
 
-ok($gene);
+# ok($gene);
 
-is($gene->version,         1, 'Default gene version = 1');
-is($transcript1->version,  1, 'Default transcript version = 1');
-is($ex1->version,          1, 'Default exon version = 1');
-is($translation1->version, 1, 'Default translation version = 1');
+# is($gene->version,         1, 'Default gene version = 1');
+# is($transcript1->version,  1, 'Default transcript version = 1');
+# is($ex1->version,          1, 'Default exon version = 1');
+# is($translation1->version, 1, 'Default translation version = 1');
 
-$ex1->start(13586);
-$ex1->end(13735);
-$ex1->phase(0);
-$ex1->end_phase(0);
-$ex1->slice($slice);
-$ex1->strand(1);
-$ex1->analysis($analysis);
+# $ex1->start(13586);
+# $ex1->end(13735);
+# $ex1->phase(0);
+# $ex1->end_phase(0);
+# $ex1->slice($slice);
+# $ex1->strand(1);
+# $ex1->analysis($analysis);
 
-my @feats;
-my $fp = new Bio::EnsEMBL::FeaturePair;
+# my @feats;
+# my $fp = new Bio::EnsEMBL::FeaturePair;
 
-$fp->start(13586);
-$fp->end(13705);
-$fp->strand(1);
-$fp->score(10);
-$fp->slice($slice);
-$fp->hstart(100);
-$fp->hend(219);
-$fp->hstrand(1);
-$fp->hseqname('dummy-hid');
+# $fp->start(13586);
+# $fp->end(13705);
+# $fp->strand(1);
+# $fp->score(10);
+# $fp->slice($slice);
+# $fp->hstart(100);
+# $fp->hend(219);
+# $fp->hstrand(1);
+# $fp->hseqname('dummy-hid');
 
-push(@feats, $fp);
+# push(@feats, $fp);
 
-$fp = new Bio::EnsEMBL::FeaturePair;
-$fp->start(13707);
-$fp->end(13735);
-$fp->strand(1);
-$fp->score(10);
-$fp->slice($slice);
+# $fp = new Bio::EnsEMBL::FeaturePair;
+# $fp->start(13707);
+# $fp->end(13735);
+# $fp->strand(1);
+# $fp->score(10);
+# $fp->slice($slice);
 
-$fp->hstart(220);
-$fp->hend(248);
-$fp->hstrand(1);
-$fp->hseqname('dummy-hid');
-push(@feats, $fp);
+# $fp->hstart(220);
+# $fp->hend(248);
+# $fp->hstrand(1);
+# $fp->hseqname('dummy-hid');
+# push(@feats, $fp);
 
 #
 #
@@ -230,187 +230,187 @@ $fp->hstrand(1);
 $fp->hseqname('dummy-hid');
 push(@feats, $fp);
 
-#
-#
-# 2 Test DnaDnaAlignFeature::new(-features)
-#
-warning { $dnaf = Bio::EnsEMBL::DnaDnaAlignFeature->new(-features => \@feats); };
-$dnaf->analysis($f_analysis);
+# #
+# #
+# # 2 Test DnaDnaAlignFeature::new(-features)
+# #
+# warning { $dnaf = Bio::EnsEMBL::DnaDnaAlignFeature->new(-features => \@feats); };
+# $dnaf->analysis($f_analysis);
 
-$ex2->add_supporting_features($dnaf);
+# $ex2->add_supporting_features($dnaf);
 
-$ex3->start(210600);
-$ex3->end(210800);
-$ex3->phase(-1);
-$ex3->end_phase(-1);
-$ex3->slice($slice);
-$ex3->strand(1);
-$ex3->analysis($analysis);
+# $ex3->start(210600);
+# $ex3->end(210800);
+# $ex3->phase(-1);
+# $ex3->end_phase(-1);
+# $ex3->slice($slice);
+# $ex3->strand(1);
+# $ex3->analysis($analysis);
 
-$transcript1->add_Exon($ex1);
-$transcript1->add_Exon($ex2);
-$translation1->start_Exon($ex1);
-$translation1->end_Exon($ex2);
-$translation1->start(1);
-$translation1->end(150);
-$transcript1->translation($translation1);
+# $transcript1->add_Exon($ex1);
+# $transcript1->add_Exon($ex2);
+# $translation1->start_Exon($ex1);
+# $translation1->end_Exon($ex2);
+# $translation1->start(1);
+# $translation1->end(150);
+# $transcript1->translation($translation1);
 
-$transcript2->add_Exon($ex1);
-$transcript2->add_Exon($ex2);
-$transcript2->add_Exon($ex3);
-$translation2->start_Exon($ex1);
-$translation2->end_Exon($ex2);
-$translation2->start(1);
-$translation2->end(180);
-$transcript2->translation($translation2);
+# $transcript2->add_Exon($ex1);
+# $transcript2->add_Exon($ex2);
+# $transcript2->add_Exon($ex3);
+# $translation2->start_Exon($ex1);
+# $translation2->end_Exon($ex2);
+# $translation2->start(1);
+# $translation2->end(180);
+# $transcript2->translation($translation2);
 
-debug("Transcripts created");
-ok($transcript1);
+# debug("Transcripts created");
+# ok($transcript1);
 
-$gene->add_Transcript($transcript1);
-$gene->add_Transcript($transcript2);
+# $gene->add_Transcript($transcript1);
+# $gene->add_Transcript($transcript2);
 
-$gene->analysis($analysis);
+# $gene->analysis($analysis);
 
-debug("Getting all the Transcripts/Exons from new Gene");
+# debug("Getting all the Transcripts/Exons from new Gene");
 
-my $count      = 0;
-my $translates = 1;
+# my $count      = 0;
+# my $translates = 1;
 
-foreach my $tr (@{$gene->get_all_Transcripts()}) {
-  if ($tr->translate()->seq() =~ /\*./) {
-	$translates = 0;
-	debug("Translate failed.");
-  }
-  debug("Translation: " . $tr->translate()->seq());
-  foreach my $exon (@{$tr->get_all_Exons()}) {
-	debug("  Exon start: " . $exon->start());
-	debug("  Exon end:   " . $exon->end());
-	debug("  Exon strand " . $exon->strand());
-	$count++;
-  }
-}
+# foreach my $tr (@{$gene->get_all_Transcripts()}) {
+#   if ($tr->translate()->seq() =~ /\*./) {
+# 	$translates = 0;
+# 	debug("Translate failed.");
+#   }
+#   debug("Translation: " . $tr->translate()->seq());
+#   foreach my $exon (@{$tr->get_all_Exons()}) {
+# 	debug("  Exon start: " . $exon->start());
+# 	debug("  Exon end:   " . $exon->end());
+# 	debug("  Exon strand " . $exon->strand());
+# 	$count++;
+#   }
+# }
 
-ok($count == 5);
-ok($translates);
+# ok($count == 5);
+# ok($translates);
 
-# Verify Transcript cache is not leaky
-my $transcripts = $gene->get_all_Transcripts;
-$count = @$transcripts;
-pop @$transcripts;
-$transcripts = $gene->get_all_Transcripts;
-cmp_ok(scalar @$transcripts, '==', $count, "Gene's transcript cache is not modified by changing transcript lists in caller code");
+# # Verify Transcript cache is not leaky
+# my $transcripts = $gene->get_all_Transcripts;
+# $count = @$transcripts;
+# pop @$transcripts;
+# $transcripts = $gene->get_all_Transcripts;
+# cmp_ok(scalar @$transcripts, '==', $count, "Gene's transcript cache is not modified by changing transcript lists in caller code");
 
-ok(scalar(@{$gene->get_all_Exons()}) == 3);
+# ok(scalar(@{$gene->get_all_Exons()}) == 3);
 
-$gene = $gene->transform("chromosome");
+# $gene = $gene->transform("chromosome");
 
-my $desc      = 'test description for a gene';
-my $stable_id = 'ENSG00000171456';
-$gene->description($desc);
-$gene->stable_id($stable_id);
+# my $desc      = 'test description for a gene';
+# my $stable_id = 'ENSG00000171456';
+# $gene->description($desc);
+# $gene->stable_id($stable_id);
 
-$gene->created_date( time());
-$gene->modified_date(time());
+# $gene->created_date( time());
+# $gene->modified_date(time());
 
-$multi->hide("core", "meta_coord", "gene", "transcript", "exon", "exon_transcript", "translation", "supporting_feature", "dna_align_feature", 'xref', 'object_xref', 'identity_xref');
+# $multi->hide("core", "meta_coord", "gene", "transcript", "exon", "exon_transcript", "translation", "supporting_feature", "dna_align_feature", 'xref', 'object_xref', 'identity_xref');
 
-my $gene_ad = $db->get_GeneAdaptor();
-debug("Storing the gene");
-$gene_ad->store($gene);
+# my $gene_ad = $db->get_GeneAdaptor();
+# debug("Storing the gene");
+# $gene_ad->store($gene);
 
-ok(1);
+# ok(1);
 
-# Cache all mappings needed for genes
-$gene_ad->cache_gene_seq_mappings();
+# # Cache all mappings needed for genes
+# $gene_ad->cache_gene_seq_mappings();
 
-my $genes = $slice->get_all_Genes();
+# my $genes = $slice->get_all_Genes();
 
-ok(scalar(@$genes) == 1);
+# ok(scalar(@$genes) == 1);
 
-my $gene_out = $genes->[0];
+# my $gene_out = $genes->[0];
 
-#make sure the stable_id was stored
-ok($gene_out->stable_id eq $stable_id);
+# #make sure the stable_id was stored
+# ok($gene_out->stable_id eq $stable_id);
 
-#make sure the version was stored
-ok($gene_out->version == 1);
+# #make sure the version was stored
+# ok($gene_out->version == 1);
 
-#make sure the description was stored
-ok($gene_out->description eq $desc);
+# #make sure the description was stored
+# ok($gene_out->description eq $desc);
 
-debug("gene_out created_date   = ", $gene_out->created_date);
-debug("gene_out modified_date  = ", $gene_out->modified_date);
+# debug("gene_out created_date   = ", $gene_out->created_date);
+# debug("gene_out modified_date  = ", $gene_out->modified_date);
 
-is($gene_out->created_date,  $gene->created_date,  'created_date roundtrips');
-is($gene_out->modified_date, $gene->modified_date, 'modified_date roundtrips');
+# is($gene_out->created_date,  $gene->created_date,  'created_date roundtrips');
+# is($gene_out->modified_date, $gene->modified_date, 'modified_date roundtrips');
 
-ok(scalar(@{$gene_out->get_all_Exons()}) == 3);
+# ok(scalar(@{$gene_out->get_all_Exons()}) == 3);
 
-foreach my $tr (@{$gene_out->get_all_Transcripts()}) {
-  debug("NewTranscript: " . $tr->dbID());
-  foreach my $exon (@{$tr->get_all_Exons()}) {
-	debug("  NewExon: " . $exon->start() . " " . $exon->end() . " " . $exon->strand());
-  }
-}
+# foreach my $tr (@{$gene_out->get_all_Transcripts()}) {
+#   debug("NewTranscript: " . $tr->dbID());
+#   foreach my $exon (@{$tr->get_all_Exons()}) {
+# 	debug("  NewExon: " . $exon->start() . " " . $exon->end() . " " . $exon->strand());
+#   }
+# }
 
-my $exons = $gene_out->get_all_Transcripts()->[0]->get_all_Exons();
+# my $exons = $gene_out->get_all_Transcripts()->[0]->get_all_Exons();
 
-ok($exons->[0]->start == 13586);
+# ok($exons->[0]->start == 13586);
 
-ok($exons->[1]->strand == 1);
-ok($exons->[1]->phase == 0);
+# ok($exons->[1]->strand == 1);
+# ok($exons->[1]->phase == 0);
 
-my $pep;
-my $translate = 0;
-foreach my $trans (@{$gene_out->get_all_Transcripts()}) {
+# my $pep;
+# my $translate = 0;
+# foreach my $trans (@{$gene_out->get_all_Transcripts()}) {
 
-  my $pep = $trans->translate();
-  debug("Peptide: " . $pep->seq());
+#   my $pep = $trans->translate();
+#   debug("Peptide: " . $pep->seq());
 
-  if ($pep->seq !~ /\*./) {
-	$translate = 1;
-  } else {
-	$translate = 0;
-  }
-}
+#   if ($pep->seq !~ /\*./) {
+# 	$translate = 1;
+#   } else {
+# 	$translate = 0;
+#   }
+# }
 
-ok($translate == 1);
+# ok($translate == 1);
 
-my $t = $gene_out->get_all_Transcripts()->[1];
+# my $t = $gene_out->get_all_Transcripts()->[1];
 
-my $e  = $t->get_all_Exons()->[0];
-my $se = $e->get_all_supporting_features();
+# my $e  = $t->get_all_Exons()->[0];
+# my $se = $e->get_all_supporting_features();
 
-debug("Got " . scalar(@$se) . " supporting features.");
-ok(scalar(@$se) == 1);
+# debug("Got " . scalar(@$se) . " supporting features.");
+# ok(scalar(@$se) == 1);
 
-my $se_start = $se->[0]->start();
+# my $se_start = $se->[0]->start();
 
-my $se_end = $se->[0]->end();
+# my $se_end = $se->[0]->end();
 
-debug("Supporting start $se_start, end $se_end");
-debug("Exon start " . $e->start() . " end " . $e->end());
+# debug("Supporting start $se_start, end $se_end");
+# debug("Exon start " . $e->start() . " end " . $e->end());
 
-ok($se_start == $e->start());
-ok($se_end == $e->end());
+# ok($se_start == $e->start());
+# ok($se_end == $e->end());
 
-my $pep1 = $t->translate()->seq();
+# my $pep1 = $t->translate()->seq();
 
-$e->phase(1);
-my $pep2 = $t->translate()->seq();
+# $e->phase(1);
+# my $pep2 = $t->translate()->seq();
 
-debug("Pep phase 0: $pep1");
-debug("Pep phase 1: $pep2");
+# debug("Pep phase 0: $pep1");
+# debug("Pep phase 1: $pep2");
 
-ok($pep1 ne $pep2);
-debug("checking external references");
+# ok($pep1 ne $pep2);
+# debug("checking external references");
 
-$multi->restore();
+# $multi->restore();
 
-$slice = $db->get_SliceAdaptor()->fetch_by_region("chromosome", "20", 30_252_000, 31_252_001);
+# $slice = $db->get_SliceAdaptor()->fetch_by_region("chromosome", "20", 30_252_000, 31_252_001);
 
-$genes = $slice->get_all_Genes();
+# $genes = $slice->get_all_Genes();
 
 # # try and count the genes on the slice
 # note 'Processing counts';
