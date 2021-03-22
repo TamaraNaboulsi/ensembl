@@ -70,8 +70,7 @@ jobs:
           cpanm -v --sudo --installdeps --notest . --with-all-features
           cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
           cpanm -n --sudo DBD::SQLite JSON
-          ls
-          cpanm TAP::Harness
+          cpanm -n --sudo Module::Build
       
       - name: Copy mysql/sqlite conf files
         run: |
