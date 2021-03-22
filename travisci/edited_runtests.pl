@@ -90,11 +90,9 @@ $ENV{'RUNTESTS_HARNESS'} = 1;
 my $results;
 eval {
   $results = $harness->runtests(@no_clean_tests);
-  use Data::Dumper;
-  print Dumper $results;
 };
 
-#clean();
+clean();
 
 if($results->has_errors()) {
   my $count = $results->failed();
