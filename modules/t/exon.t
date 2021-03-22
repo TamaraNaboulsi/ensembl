@@ -480,9 +480,11 @@ ok($db);
     ));
 
 
-#   my $exon_one = $tr->get_all_Exons()->[0];
+  my $exon_one = $tr->get_all_Exons()->[0];
+  use Data::Dumper;
+  print Dumper $exon_one;
 
-#   ok($tr->translate, "Transcript can translate");
+  ok($tr->translate, "Transcript can translate");
 #   is($exon_one->start, $tr->start, 'Exon start equals Transcript start');
 #   is($exon_one->end, $tr->end, 'Exon end equals Transcript end');
 
