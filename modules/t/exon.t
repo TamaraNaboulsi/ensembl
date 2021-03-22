@@ -241,103 +241,103 @@ ok(count_rows($db, 'supporting_feature') == $supfeat_count - $supfeat_minus);
 
 $multi->restore();
 
-# #
-# # tests for multiple versions of transcripts in a database
-# #
+#
+# tests for multiple versions of transcripts in a database
+#
 
-# $exon = $exonad->fetch_by_stable_id('ENSE00001109603');
-# debug("fetch_by_stable_id");
-# ok( $exon->dbID == 162033 );
+$exon = $exonad->fetch_by_stable_id('ENSE00001109603');
+debug("fetch_by_stable_id");
+ok( $exon->dbID == 162033 );
 
-# $exon->stable_id_version('ENSE00000171455.4');
-# is($exon->stable_id, 'ENSE00000171455', 'Stable id set with stable_id_version');
-# is($exon->version, 4, 'Version set with stable_id_version');
-# is($exon->stable_id_version, 'ENSE00000171455.4', 'Stable id and version from stable_id_version');
+$exon->stable_id_version('ENSE00000171455.4');
+is($exon->stable_id, 'ENSE00000171455', 'Stable id set with stable_id_version');
+is($exon->version, 4, 'Version set with stable_id_version');
+is($exon->stable_id_version, 'ENSE00000171455.4', 'Stable id and version from stable_id_version');
 
-# $exon->stable_id_version('ENSE00000171456');
-# is($exon->stable_id, 'ENSE00000171456', 'Stable id set with stable_id_version');
-# is($exon->version, undef, 'Version undef from stable_id_version');
-# is($exon->stable_id_version, 'ENSE00000171456', 'Stable id and no version from stable_id_version');
+$exon->stable_id_version('ENSE00000171456');
+is($exon->stable_id, 'ENSE00000171456', 'Stable id set with stable_id_version');
+is($exon->version, undef, 'Version undef from stable_id_version');
+is($exon->stable_id_version, 'ENSE00000171456', 'Stable id and no version from stable_id_version');
 
-# $exon = $exonad->fetch_by_stable_id('ENSE00001109603.1');
-# ok($exon->dbID == 162033, 'fetch_by_stable_id with version');
+$exon = $exonad->fetch_by_stable_id('ENSE00001109603.1');
+ok($exon->dbID == 162033, 'fetch_by_stable_id with version');
 
-# $exon = $exonad->fetch_by_stable_id('ENSE00001109603.1a');
-# ok(!defined($exon), 'fetch_by_stable_id with bad version');
+$exon = $exonad->fetch_by_stable_id('ENSE00001109603.1a');
+ok(!defined($exon), 'fetch_by_stable_id with bad version');
 
-# $exon = $exonad->fetch_by_stable_id_version('ENSE00001109603', 1);
-# ok($exon->dbID == 162033, 'fetch_by_stable_id_version with version');
+$exon = $exonad->fetch_by_stable_id_version('ENSE00001109603', 1);
+ok($exon->dbID == 162033, 'fetch_by_stable_id_version with version');
 
-# $exon = $exonad->fetch_by_stable_id_version('ENSE00001109603', '1a');
-# ok(!defined($exon), 'fetch_by_stable_id_version with bad version');
+$exon = $exonad->fetch_by_stable_id_version('ENSE00001109603', '1a');
+ok(!defined($exon), 'fetch_by_stable_id_version with bad version');
 
-# my @exons = @{ $exonad->fetch_all_versions_by_stable_id('ENSE00001109603') };
-# debug("fetch_all_versions_by_stable_id");
-# ok( scalar(@exons) == 1 );
+my @exons = @{ $exonad->fetch_all_versions_by_stable_id('ENSE00001109603') };
+debug("fetch_all_versions_by_stable_id");
+ok( scalar(@exons) == 1 );
 
-# # store/update tests
+# store/update tests
 
-# $multi->hide( "core", "exon", "supporting_feature", 
-# 	      "protein_align_feature", "dna_align_feature", 'meta_coord');
+$multi->hide( "core", "exon", "supporting_feature", 
+	      "protein_align_feature", "dna_align_feature", 'meta_coord');
 
-# my $e1 = Bio::EnsEMBL::Exon->new(
-#   -start => 10,
-#   -end => 1000,
-#   -strand => 1,
-#   -slice => $slice,
-#   -phase => 0,
-#   -end_phase => 0,
-#   -stable_id => 'ENSE0001'
-# );
+my $e1 = Bio::EnsEMBL::Exon->new(
+  -start => 10,
+  -end => 1000,
+  -strand => 1,
+  -slice => $slice,
+  -phase => 0,
+  -end_phase => 0,
+  -stable_id => 'ENSE0001'
+);
 
-# my $e2 = Bio::EnsEMBL::Exon->new(
-#   -start => 10,
-#   -end => 1000,
-#   -strand => 1,
-#   -slice => $slice,
-#   -phase => 0,
-#   -end_phase => 0,
-#   -stable_id => 'ENSE0001',
-#   -version => 2,
-#   -is_current => 0
-# );
+my $e2 = Bio::EnsEMBL::Exon->new(
+  -start => 10,
+  -end => 1000,
+  -strand => 1,
+  -slice => $slice,
+  -phase => 0,
+  -end_phase => 0,
+  -stable_id => 'ENSE0001',
+  -version => 2,
+  -is_current => 0
+);
 
-# my $e3 = Bio::EnsEMBL::Exon->new(
-#   -start => 10,
-#   -end => 1000,
-#   -strand => 1,
-#   -slice => $slice,
-#   -phase => 0,
-#   -end_phase => 0,
-#   -stable_id => 'ENSE0001',
-#   -is_current => 0
-# );
-# $e3->version(undef);
+my $e3 = Bio::EnsEMBL::Exon->new(
+  -start => 10,
+  -end => 1000,
+  -strand => 1,
+  -slice => $slice,
+  -phase => 0,
+  -end_phase => 0,
+  -stable_id => 'ENSE0001',
+  -is_current => 0
+);
+$e3->version(undef);
 
-# $exonad->store($e1);
-# $exonad->store($e2);
-# $exonad->store($e3);
+$exonad->store($e1);
+$exonad->store($e2);
+$exonad->store($e3);
 
-# $exon = $exonad->fetch_by_stable_id('ENSE0001');
-# ok( $exon->is_current == 1);
-# ok( $exon->version == 1);
+$exon = $exonad->fetch_by_stable_id('ENSE0001');
+ok( $exon->is_current == 1);
+ok( $exon->version == 1);
 
-# @exons = @{ $exonad->fetch_all_versions_by_stable_id('ENSE0001') };
-# foreach my $e (@exons) {
-#   if (defined $e->version && $e->version == 2) {
-#     ok($e->is_current == 0);
-#   }
-# }
+@exons = @{ $exonad->fetch_all_versions_by_stable_id('ENSE0001') };
+foreach my $e (@exons) {
+  if (defined $e->version && $e->version == 2) {
+    ok($e->is_current == 0);
+  }
+}
 
-# my $null_versions = 0;
-# foreach my $e (@exons) {
-#   if (! defined $e->version) {
-#     $null_versions++;
-#   }
-# }
-# is ( $null_versions, 1, "Null/undef version stored and retrieved");
+my $null_versions = 0;
+foreach my $e (@exons) {
+  if (! defined $e->version) {
+    $null_versions++;
+  }
+}
+is ( $null_versions, 1, "Null/undef version stored and retrieved");
 
-# $multi->restore();
+$multi->restore();
 
 # # TESTS 36-47: Tests for cdna_start(), cdna_end(), cdna_coding_start(),
 # # cdna_coding_end(), coding_region_start(), and coding_region_end().
