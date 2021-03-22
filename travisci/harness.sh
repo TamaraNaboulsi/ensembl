@@ -33,8 +33,8 @@ else
   perl $ENSDIR/ensembl-test/scripts/runtests.pl --verbose modules/t $SKIP_TESTS
   rt=$?
   if [ "$DB" = 'mysql' ]; then
-    perl $ENSDIR/ensembl-test/scripts/runtests.pl --verbose misc-scripts/xref_mapping/t
-    rt=$(($rt+$?))
+#     perl $ENSDIR/ensembl-test/scripts/runtests.pl --verbose misc-scripts/xref_mapping/t
+#     rt=$(($rt+$?))
   fi
 fi
 
