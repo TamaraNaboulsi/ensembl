@@ -43,41 +43,41 @@ ok($db);
 
 # Exon specific tests
 
-# my $exonad = $db->get_ExonAdaptor();
-# my $slice_adaptor = $db->get_SliceAdaptor();
+my $exonad = $db->get_ExonAdaptor();
+my $slice_adaptor = $db->get_SliceAdaptor();
 
-# my $slice = $slice_adaptor->fetch_by_region('chromosome', '20',
-#                                             30_811_000,
-#                                             32_000_000);
-# ok($exonad);
+my $slice = $slice_adaptor->fetch_by_region('chromosome', '20',
+                                            30_811_000,
+                                            32_000_000);
+ok($exonad);
 
-# my $exon = Bio::EnsEMBL::Exon->new();
+my $exon = Bio::EnsEMBL::Exon->new();
 
 
-# $exon->start(1000);
-# ok(&test_getter_setter($exon, 'start', 200));
+$exon->start(1000);
+ok(&test_getter_setter($exon, 'start', 200));
 
-# $exon->end(1400);
-# ok(&test_getter_setter($exon, 'end', 400));
+$exon->end(1400);
+ok(&test_getter_setter($exon, 'end', 400));
 
-# $exon->strand(1);
-# ok(&test_getter_setter($exon, 'strand', -1));
+$exon->strand(1);
+ok(&test_getter_setter($exon, 'strand', -1));
 
-# $exon->phase(0);
-# ok(&test_getter_setter($exon, 'phase', -1));
+$exon->phase(0);
+ok(&test_getter_setter($exon, 'phase', -1));
 
-# $exon->slice( $slice );
-# ok(&test_getter_setter($exon, 'slice', $slice));
+$exon->slice( $slice );
+ok(&test_getter_setter($exon, 'slice', $slice));
 
-# # should try to store (!)
-# $exon->end_phase( -1 );
-# ok(&test_getter_setter($exon, 'end_phase', 1));
+# should try to store (!)
+$exon->end_phase( -1 );
+ok(&test_getter_setter($exon, 'end_phase', 1));
 
-# ok( test_getter_setter( $exon, "created_date", time() ));
-# ok( test_getter_setter( $exon, "modified_date", time() ));
+ok( test_getter_setter( $exon, "created_date", time() ));
+ok( test_getter_setter( $exon, "modified_date", time() ));
 
-# # Test that no parameter to is_coding() throws an exception
-# throws_ok { $exon->is_coding() } qr/parameter is required/, "Transcript parameter required for is_coding()";
+# Test that no parameter to is_coding() throws an exception
+throws_ok { $exon->is_coding() } qr/parameter is required/, "Transcript parameter required for is_coding()";
 
 # #
 # # find supporting evidence for the exon
