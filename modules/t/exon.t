@@ -152,34 +152,34 @@ debug("exon strand = " . $exon->strand);
 ok($exon->start == 11 && $exon->end == 411 && $exon->strand==1);
 
 
-# #
-# # Test Transform to contig coord system
-# #
-# $exon = $exon->transform('contig');
+#
+# Test Transform to contig coord system
+#
+$exon = $exon->transform('contig');
 
-# debug("exon start  = " . $exon->start);
-# debug("exon end    = " . $exon->end);
-# debug("exon strand = " . $exon->strand);
-# debug("exon seq_region = " . $exon->slice->seq_region_name);
+debug("exon start  = " . $exon->start);
+debug("exon end    = " . $exon->end);
+debug("exon strand = " . $exon->strand);
+debug("exon seq_region = " . $exon->slice->seq_region_name);
 
-# ok($exon->start == 913);
-# ok($exon->end   == 1313);
-# ok($exon->strand == 1);
-# ok($exon->slice->seq_region_name eq 'AL034550.31.1.118873');
+ok($exon->start == 913);
+ok($exon->end   == 1313);
+ok($exon->strand == 1);
+ok($exon->slice->seq_region_name eq 'AL034550.31.1.118873');
 
 
-# #regression test, supporting evidence was lost post transform before...
-# my $se_count = scalar(@{$exon->get_all_supporting_features});
+#regression test, supporting evidence was lost post transform before...
+my $se_count = scalar(@{$exon->get_all_supporting_features});
 
-# debug("Got $se_count supporting feature after transform");
-# ok($se_count == $count);
-# $exon->flush_supporting_features;
-# is(scalar(@{$exon->get_all_supporting_features}), 0, "All supporting features flushed");
+debug("Got $se_count supporting feature after transform");
+ok($se_count == $count);
+$exon->flush_supporting_features;
+is(scalar(@{$exon->get_all_supporting_features}), 0, "All supporting features flushed");
 
-# #make sure that supporting evidencewas stored correctly
-# $se_count = scalar(@{$newexon->get_all_supporting_features});
-# debug("Got $se_count from newly stored exon");
-# ok($se_count == $count);
+#make sure that supporting evidencewas stored correctly
+$se_count = scalar(@{$newexon->get_all_supporting_features});
+debug("Got $se_count from newly stored exon");
+ok($se_count == $count);
 
 
 # # list_ functions
