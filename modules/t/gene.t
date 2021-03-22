@@ -184,115 +184,115 @@ $fp->hstrand(1);
 $fp->hseqname('dummy-hid');
 push(@feats, $fp);
 
-# #
-# #
-# # 2 Test DnaDnaAlignFeature::new(-features)
-# #
-# my $dnaf;
-# warning { $dnaf = Bio::EnsEMBL::DnaDnaAlignFeature->new(-features => \@feats); };
-# $dnaf->analysis($f_analysis);
+#
+#
+# 2 Test DnaDnaAlignFeature::new(-features)
+#
+my $dnaf;
+warning { $dnaf = Bio::EnsEMBL::DnaDnaAlignFeature->new(-features => \@feats); };
+$dnaf->analysis($f_analysis);
 
-# $ex1->add_supporting_features($dnaf);
+$ex1->add_supporting_features($dnaf);
 
-# $ex2->start(201372);
-# $ex2->end(201571);
-# $ex2->phase(0);
-# $ex2->end_phase(-1);
-# $ex2->slice($slice);
-# $ex2->strand(1);
-# $ex2->analysis($analysis);
+$ex2->start(201372);
+$ex2->end(201571);
+$ex2->phase(0);
+$ex2->end_phase(-1);
+$ex2->slice($slice);
+$ex2->strand(1);
+$ex2->analysis($analysis);
 
-# @feats = ();
-# $fp    = new Bio::EnsEMBL::FeaturePair;
+@feats = ();
+$fp    = new Bio::EnsEMBL::FeaturePair;
 
-# $fp->start(201372);
-# $fp->end(201471);
-# $fp->strand(1);
-# $fp->score(10);
-# $fp->slice($slice);
-# $fp->hstart(100);
-# $fp->hend(199);
-# $fp->hstrand(1);
-# $fp->hseqname('dummy-hid');
+$fp->start(201372);
+$fp->end(201471);
+$fp->strand(1);
+$fp->score(10);
+$fp->slice($slice);
+$fp->hstart(100);
+$fp->hend(199);
+$fp->hstrand(1);
+$fp->hseqname('dummy-hid');
 
-# push(@feats, $fp);
+push(@feats, $fp);
 
-# $fp = new Bio::EnsEMBL::FeaturePair;
-# $fp->start(201472);
-# $fp->end(201571);
-# $fp->strand(1);
-# $fp->score(10);
-# $fp->slice($slice);
+$fp = new Bio::EnsEMBL::FeaturePair;
+$fp->start(201472);
+$fp->end(201571);
+$fp->strand(1);
+$fp->score(10);
+$fp->slice($slice);
 
-# $fp->hstart(201);
-# $fp->hend(300);
-# $fp->hstrand(1);
-# $fp->hseqname('dummy-hid');
-# push(@feats, $fp);
+$fp->hstart(201);
+$fp->hend(300);
+$fp->hstrand(1);
+$fp->hseqname('dummy-hid');
+push(@feats, $fp);
 
-# #
-# #
-# # 2 Test DnaDnaAlignFeature::new(-features)
-# #
-# warning { $dnaf = Bio::EnsEMBL::DnaDnaAlignFeature->new(-features => \@feats); };
-# $dnaf->analysis($f_analysis);
+#
+#
+# 2 Test DnaDnaAlignFeature::new(-features)
+#
+warning { $dnaf = Bio::EnsEMBL::DnaDnaAlignFeature->new(-features => \@feats); };
+$dnaf->analysis($f_analysis);
 
-# $ex2->add_supporting_features($dnaf);
+$ex2->add_supporting_features($dnaf);
 
-# $ex3->start(210600);
-# $ex3->end(210800);
-# $ex3->phase(-1);
-# $ex3->end_phase(-1);
-# $ex3->slice($slice);
-# $ex3->strand(1);
-# $ex3->analysis($analysis);
+$ex3->start(210600);
+$ex3->end(210800);
+$ex3->phase(-1);
+$ex3->end_phase(-1);
+$ex3->slice($slice);
+$ex3->strand(1);
+$ex3->analysis($analysis);
 
-# $transcript1->add_Exon($ex1);
-# $transcript1->add_Exon($ex2);
-# $translation1->start_Exon($ex1);
-# $translation1->end_Exon($ex2);
-# $translation1->start(1);
-# $translation1->end(150);
-# $transcript1->translation($translation1);
+$transcript1->add_Exon($ex1);
+$transcript1->add_Exon($ex2);
+$translation1->start_Exon($ex1);
+$translation1->end_Exon($ex2);
+$translation1->start(1);
+$translation1->end(150);
+$transcript1->translation($translation1);
 
-# $transcript2->add_Exon($ex1);
-# $transcript2->add_Exon($ex2);
-# $transcript2->add_Exon($ex3);
-# $translation2->start_Exon($ex1);
-# $translation2->end_Exon($ex2);
-# $translation2->start(1);
-# $translation2->end(180);
-# $transcript2->translation($translation2);
+$transcript2->add_Exon($ex1);
+$transcript2->add_Exon($ex2);
+$transcript2->add_Exon($ex3);
+$translation2->start_Exon($ex1);
+$translation2->end_Exon($ex2);
+$translation2->start(1);
+$translation2->end(180);
+$transcript2->translation($translation2);
 
-# debug("Transcripts created");
-# ok($transcript1);
+debug("Transcripts created");
+ok($transcript1);
 
-# $gene->add_Transcript($transcript1);
-# $gene->add_Transcript($transcript2);
+$gene->add_Transcript($transcript1);
+$gene->add_Transcript($transcript2);
 
-# $gene->analysis($analysis);
+$gene->analysis($analysis);
 
-# debug("Getting all the Transcripts/Exons from new Gene");
+debug("Getting all the Transcripts/Exons from new Gene");
 
-# my $count      = 0;
-# my $translates = 1;
+my $count      = 0;
+my $translates = 1;
 
-# foreach my $tr (@{$gene->get_all_Transcripts()}) {
-#   if ($tr->translate()->seq() =~ /\*./) {
-# 	$translates = 0;
-# 	debug("Translate failed.");
-#   }
-#   debug("Translation: " . $tr->translate()->seq());
-#   foreach my $exon (@{$tr->get_all_Exons()}) {
-# 	debug("  Exon start: " . $exon->start());
-# 	debug("  Exon end:   " . $exon->end());
-# 	debug("  Exon strand " . $exon->strand());
-# 	$count++;
-#   }
-# }
+foreach my $tr (@{$gene->get_all_Transcripts()}) {
+  if ($tr->translate()->seq() =~ /\*./) {
+	$translates = 0;
+	debug("Translate failed.");
+  }
+  debug("Translation: " . $tr->translate()->seq());
+  foreach my $exon (@{$tr->get_all_Exons()}) {
+	debug("  Exon start: " . $exon->start());
+	debug("  Exon end:   " . $exon->end());
+	debug("  Exon strand " . $exon->strand());
+	$count++;
+  }
+}
 
-# ok($count == 5);
-# ok($translates);
+ok($count == 5);
+ok($translates);
 
 # # Verify Transcript cache is not leaky
 # my $transcripts = $gene->get_all_Transcripts;
