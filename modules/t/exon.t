@@ -212,34 +212,34 @@ ok($first_seq->seq() && $first_seq->seq() eq $second_seq->seq());
 ok($first_seq->display_id()  && $first_seq->display_id() eq $second_seq->display_id());
 
 
-# #
-# # test the remove method works
-# #
+#
+# test the remove method works
+#
 
-# $multi->save("core", "exon", "supporting_feature",
-#   "dna_align_feature", "protein_align_feature", 'meta_coord');
+$multi->save("core", "exon", "supporting_feature",
+  "dna_align_feature", "protein_align_feature", 'meta_coord');
 
-# my $ex_count = count_rows($db, 'exon');
-# my $supfeat_count = count_rows($db, 'supporting_feature');
+my $ex_count = count_rows($db, 'exon');
+my $supfeat_count = count_rows($db, 'supporting_feature');
 
-# $exon = $exonad->fetch_by_stable_id('ENSE00000859937');
+$exon = $exonad->fetch_by_stable_id('ENSE00000859937');
 
-# # check the created and modified times
-# my @date_time = gmtime( $exon->created_date());
-# ok( $date_time[3] == 6 && $date_time[4] == 11 && $date_time[5] == 104 );
+# check the created and modified times
+my @date_time = gmtime( $exon->created_date());
+ok( $date_time[3] == 6 && $date_time[4] == 11 && $date_time[5] == 104 );
 
-# @date_time = gmtime( $exon->modified_date());
-# ok( $date_time[3] == 6 && $date_time[4] == 11 && $date_time[5] == 104 );
+@date_time = gmtime( $exon->modified_date());
+ok( $date_time[3] == 6 && $date_time[4] == 11 && $date_time[5] == 104 );
 
 
-# my $supfeat_minus = @{$exon->get_all_supporting_features()};
+my $supfeat_minus = @{$exon->get_all_supporting_features()};
 
-# $exonad->remove($exon);
+$exonad->remove($exon);
 
-# ok(count_rows($db, 'exon') == $ex_count - 1);
-# ok(count_rows($db, 'supporting_feature') == $supfeat_count - $supfeat_minus);
+ok(count_rows($db, 'exon') == $ex_count - 1);
+ok(count_rows($db, 'supporting_feature') == $supfeat_count - $supfeat_minus);
 
-# $multi->restore();
+$multi->restore();
 
 # #
 # # tests for multiple versions of transcripts in a database
