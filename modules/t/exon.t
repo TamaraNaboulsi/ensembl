@@ -601,6 +601,6 @@ SKIP: {
 #   $exon_three = $tr->get_all_Exons()->[0];
 #   $is_coding = $exon_three->is_coding($tr);
 #   is($is_coding, 0, "is_coding returns zero for noncoding reverse exon three");
-# }
+}
 
 done_testing();
