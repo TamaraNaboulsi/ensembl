@@ -339,47 +339,47 @@ is ( $null_versions, 1, "Null/undef version stored and retrieved");
 
 $multi->restore();
 
-# # TESTS 36-47: Tests for cdna_start(), cdna_end(), cdna_coding_start(),
-# # cdna_coding_end(), coding_region_start(), and coding_region_end().
+# TESTS 36-47: Tests for cdna_start(), cdna_end(), cdna_coding_start(),
+# cdna_coding_end(), coding_region_start(), and coding_region_end().
 
-# my $transcriptad = $db->get_TranscriptAdaptor();
-# my $transcript   = $transcriptad->fetch_by_stable_id('ENST00000246229');
+my $transcriptad = $db->get_TranscriptAdaptor();
+my $transcript   = $transcriptad->fetch_by_stable_id('ENST00000246229');
 
-# @exons = @{ $transcript->get_all_Exons() };
+@exons = @{ $transcript->get_all_Exons() };
 
-# $exon = shift @exons;    # First exon is non-coding.
+$exon = shift @exons;    # First exon is non-coding.
 
-# ok( $exon->cdna_start($transcript) == 1 );
-# ok( $exon->cdna_end($transcript) == 88 );
-# ok( !defined $exon->cdna_coding_start($transcript) );
-# ok( !defined $exon->cdna_coding_end($transcript) );
-# ok( !defined $exon->coding_region_start($transcript) );
-# ok( !defined $exon->coding_region_end($transcript) );
+ok( $exon->cdna_start($transcript) == 1 );
+ok( $exon->cdna_end($transcript) == 88 );
+ok( !defined $exon->cdna_coding_start($transcript) );
+ok( !defined $exon->cdna_coding_end($transcript) );
+ok( !defined $exon->coding_region_start($transcript) );
+ok( !defined $exon->coding_region_end($transcript) );
 
-# is ( $exon->rank($transcript), 1, "First exon has rank 1");
+is ( $exon->rank($transcript), 1, "First exon has rank 1");
 
-# $exon = shift @exons;    # Second exon is coding.
+$exon = shift @exons;    # Second exon is coding.
 
-# ok( $exon->cdna_start($transcript) == 89 );
-# ok( $exon->cdna_end($transcript) == 462 );
-# ok( $exon->cdna_coding_start($transcript) == 203 );
-# ok( $exon->cdna_coding_end($transcript) == 462 );
-# ok( $exon->coding_region_start($transcript) == 30577779 );
-# ok( $exon->coding_region_end($transcript) == 30578038 );
+ok( $exon->cdna_start($transcript) == 89 );
+ok( $exon->cdna_end($transcript) == 462 );
+ok( $exon->cdna_coding_start($transcript) == 203 );
+ok( $exon->cdna_coding_end($transcript) == 462 );
+ok( $exon->coding_region_start($transcript) == 30577779 );
+ok( $exon->coding_region_end($transcript) == 30578038 );
 
-# is ( $exon->rank($transcript), 2, "Second exon has rank 2");
+is ( $exon->rank($transcript), 2, "Second exon has rank 2");
 
-# my $pep = $exon->peptide($transcript);
-# is($pep->seq, 'MTTFFTSVPPWIQDAKQEEEVGWKLVPRPRGREAESQVKCQCEISGTPFSNGEKLRPHSLPQPEQRPYSCPQLHCGKAFASKYKLYR', 'Retrieved peptide sequence');
+my $pep = $exon->peptide($transcript);
+is($pep->seq, 'MTTFFTSVPPWIQDAKQEEEVGWKLVPRPRGREAESQVKCQCEISGTPFSNGEKLRPHSLPQPEQRPYSCPQLHCGKAFASKYKLYR', 'Retrieved peptide sequence');
 
-# SKIP: {
-#   skip 'No registry support for SQLite yet', 1 if $db->dbc->driver() eq 'SQLite';
+SKIP: {
+  skip 'No registry support for SQLite yet', 1 if $db->dbc->driver() eq 'SQLite';
 
-#   #test the get_species_and_object_type method from the Registry
-#   my $registry = 'Bio::EnsEMBL::Registry';
-#   my ( $species, $object_type, $db_type ) = $registry->get_species_and_object_type('ENSE00000859937');
-#   ok( $species eq 'homo_sapiens' && $object_type eq 'Exon');
-# }
+  #test the get_species_and_object_type method from the Registry
+  my $registry = 'Bio::EnsEMBL::Registry';
+  my ( $species, $object_type, $db_type ) = $registry->get_species_and_object_type('ENSE00000859937');
+  ok( $species eq 'homo_sapiens' && $object_type eq 'Exon');
+}
 
 # # UTR and coding region tests. Only testing simple +ve orientation transcript ATMO but it is a start
 # # tests are based on offsetted coordinates from ENST00000000233 in release 67
