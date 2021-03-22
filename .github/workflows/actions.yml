@@ -12,8 +12,7 @@ jobs:
 
     strategy:
       matrix:
-#        perl: ['5.14', '5.26', '5.30']
-        perl: ['5.30']
+        perl: ['5.14', '5.26', '5.30']
         coveralls: [true, false]
         database: [mysql, sqlite]
 #        include:
@@ -70,7 +69,6 @@ jobs:
           cpanm -v --sudo --installdeps --notest . --with-all-features
           cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
           cpanm -n --sudo DBD::SQLite JSON
-          cpanm -n --sudo Module::Build
       
       - name: Copy mysql/sqlite conf files
         run: |
