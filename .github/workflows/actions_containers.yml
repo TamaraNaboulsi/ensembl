@@ -62,7 +62,7 @@ jobs:
           apt update && apt install sudo
           sudo apt-get update
           sudo apt-get install xz-utils
-          sudo apt-get remove --auto-remove perl --force-yes
+          sudo apt-get remove --auto-remove perl -y
 
       - name: Set up perl ${{ matrix.perl }}
         uses: shogo82148/actions-setup-perl@v1
