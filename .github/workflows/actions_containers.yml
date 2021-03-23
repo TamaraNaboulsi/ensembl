@@ -67,6 +67,7 @@ jobs:
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
+          distribution: strawberry
           
 #       - name: Install mysql
 #         run: |
