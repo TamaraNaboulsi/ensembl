@@ -13,7 +13,8 @@ jobs:
 
     strategy:
       matrix:
-        perl: ['5.14', '5.26']
+#         perl: ['5.14', '5.26', '5.30']
+        perl: ['5.14']
         coveralls: [true, false]
         database: [mysql, sqlite]
         container: ['ubuntu:trusty']
@@ -57,15 +58,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       
+      - name: Before script
+        run: |
+          sudo apt-get update
+          sudo apt-get install xz-utils
+          perl --version
+#          lsb_release -a
+
       - name: Set up perl ${{ matrix.perl }}
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
-
-      - name: Before script
-        run: |
-          perl --version
-#          lsb_release -a
           
 #       - name: Before Script
 #         run: |
