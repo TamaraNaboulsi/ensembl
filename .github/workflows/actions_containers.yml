@@ -63,13 +63,16 @@ jobs:
           apt update && apt install sudo
           sudo apt-get update
           sudo apt-get install xz-utils
-          perl --version
-#          lsb_release -a
 
       - name: Set up perl ${{ matrix.perl }}
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
+      
+      - name: Check
+        run: |
+          perl --version
+          lsb_release -a
           
 #       - name: Before Script
 #         run: |
