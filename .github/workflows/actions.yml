@@ -55,10 +55,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       
-      - name: Set up perl ${{ matrix.perl }}
-        uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: ${{ matrix.perl }}
+      - name: Before script
+        run: |
+          apt update && apt install sudo
+          sudo apt update
+      
+#       - name: Set up perl ${{ matrix.perl }}
+#         uses: shogo82148/actions-setup-perl@v1
+#         with:
+#           perl-version: ${{ matrix.perl }}
       
       - name: Clone repos
         run: |
