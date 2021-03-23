@@ -76,9 +76,9 @@ jobs:
 #          apt-get install -y default-mysql-server
           
 
-      - name: Install dependencies
-        run: |
-          cpanm -v --sudo --installdeps --notest . --with-all-features
+#       - name: Install dependencies
+#         run: |
+#           cpanm -v --sudo --installdeps --notest . --with-all-features
 #          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
 #          cpanm -n --sudo DBD::SQLite JSON
       
@@ -90,12 +90,12 @@ jobs:
 #           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
 #           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
       
-#       - uses: perl-actions/install-with-cpanm@v1
-#         name: Install dependencies
-#         with:
-#           cpanfile: "cpanfile"
-#           sudo: false
-#           verbose: true
+      - uses: perl-actions/install-with-cpanm@v1
+        name: Install dependencies
+        with:
+          cpanfile: "cpanfile"
+          sudo: false
+          verbose: true
 #           install: |
 #             Devel::Cover
 #             Devel::Cover::Report::Coveralls
