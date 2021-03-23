@@ -49,10 +49,9 @@ jobs:
       
       - name: Before Script
         run: |
-          apt update && apt install sudo
-          sudo apt update
-          mysql --version
-          service mysql status
+          apt-get install -y mysql-server
+#          apt update && apt install sudo
+#          sudo apt update
 #          apt-get install -y default-mysql-server
 #          apt-get install -y lsb-release
 #          lsb_release -a
