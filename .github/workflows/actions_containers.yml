@@ -62,11 +62,14 @@ jobs:
           apt update && apt install sudo
           sudo apt-get update
           sudo apt-get install xz-utils
+          sudo apt-get remove perl
 
       - name: Set up perl ${{ matrix.perl }}
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
+      
+      - run: perl --version
           
 #       - name: Install mysql
 #         run: |
