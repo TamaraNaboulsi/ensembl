@@ -21,7 +21,7 @@ jobs:
           - perl: '5.30'
             container: 'tamaranaboulsi/test-repo:perl-5.030.004-custom'
             coveralls: false
-            DB: mysql
+            database: mysql
         exclude:
           - perl: '5.14'
             coveralls: true
