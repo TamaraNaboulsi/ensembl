@@ -68,6 +68,12 @@ jobs:
 #          apt-get install -y default-mysql-server
 #          apt-get install -y lsb-release
 #          lsb_release -a
+
+      - name: Install dependencies
+        run: |
+          cpanm -v --sudo --installdeps --notest . --with-all-features
+          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+          cpanm -n --sudo DBD::SQLite JSON
       
       - name: Clone repos
         run: |
@@ -76,12 +82,6 @@ jobs:
           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-variation.git
           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
-  
-      - name: Install dependencies
-        run: |
-          cpanm -v --sudo --installdeps --notest . --with-all-features
-          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
-          cpanm -n --sudo DBD::SQLite JSON
       
 #       - uses: perl-actions/install-with-cpanm@v1
 #         name: Install dependencies
