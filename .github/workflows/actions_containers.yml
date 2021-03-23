@@ -57,13 +57,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       
-      - name: Set up perl ${{ matrix.perl }}
-        uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: ${{ matrix.perl }}
-      
       - name: Before script
-        run: lsb_release -a
+        run: |
+          lsb_release -a
+          perl --version
+      
+#       - name: Set up perl ${{ matrix.perl }}
+#         uses: shogo82148/actions-setup-perl@v1
+#         with:
+#           perl-version: ${{ matrix.perl }}
           
 #       - name: Before Script
 #         run: |
@@ -74,19 +76,19 @@ jobs:
 #          apt-get install -y lsb-release
 #          lsb_release -a
 
-      - name: Install dependencies
-        run: |
-          cpanm -v --sudo --installdeps --notest . --with-all-features
-          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
-          cpanm -n --sudo DBD::SQLite JSON
+#       - name: Install dependencies
+#         run: |
+#           cpanm -v --sudo --installdeps --notest . --with-all-features
+#           cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+#           cpanm -n --sudo DBD::SQLite JSON
       
-      - name: Clone repos
-        run: |
-          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-test.git
-          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-io.git
-          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-variation.git
-          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
-          git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
+#       - name: Clone repos
+#         run: |
+#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-test.git
+#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-io.git
+#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-variation.git
+#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
+#           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
       
 #       - uses: perl-actions/install-with-cpanm@v1
 #         name: Install dependencies
