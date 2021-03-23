@@ -59,6 +59,7 @@ jobs:
         run: |
           apt update && apt install sudo
           sudo apt update
+          apt-get install -y default-mysql-server
       
 #       - name: Set up perl ${{ matrix.perl }}
 #         uses: shogo82148/actions-setup-perl@v1
