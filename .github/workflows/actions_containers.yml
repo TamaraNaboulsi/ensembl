@@ -51,6 +51,7 @@ jobs:
           sudo apt update
           apt-get install -y default-mysql-server
           apt-get install -y lsb-release
+          apt-get install -y lsb-core
           lsb_release -a
       
       - name: Clone repos
