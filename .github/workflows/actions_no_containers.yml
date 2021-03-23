@@ -51,6 +51,11 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       
+      - name: Before script
+        run: |
+          apt-get install -y lsb-release
+          lsb_release -a
+      
       - name: Clone repos
         run: |
           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-test.git
