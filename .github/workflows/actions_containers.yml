@@ -13,17 +13,17 @@ jobs:
 
     strategy:
       matrix:
-        perl: ['5.14', '5.26', '5.30']
+        perl: ['5.14', '5.26']
         coveralls: [true, false]
         database: [mysql, sqlite]
         container: ['ubuntu:trusty']
 #         container: ['tamaranaboulsi/test-repo:perl-5.014.004-custom']
-        include:
-          - perl: '5.30'
-#             container: 'tamaranaboulsi/test-repo:perl-5.030.004-custom'
-            container: 'ubuntu:focal'
-            coveralls: false
-            database: mysql
+#         include:
+#           - perl: '5.30'
+# #             container: 'tamaranaboulsi/test-repo:perl-5.030.004-custom'
+#             container: 'ubuntu:focal'
+#             coveralls: false
+#             database: mysql
         exclude:
           - perl: '5.14'
             coveralls: true
@@ -35,13 +35,13 @@ jobs:
           - perl: '5.26'
             coveralls: true
             database: sqlite
-          - perl: 5.30
-            coveralls: true
-          - perl: '5.30'
-            container: 'ubuntu:trusty'
-          - perl: 5.30
-            coveralls: false
-            database: sqlite
+#           - perl: 5.30
+#             coveralls: true
+#           - perl: '5.30'
+#             container: 'ubuntu:trusty'
+#           - perl: 5.30
+#             coveralls: false
+#             database: sqlite
     
     steps:
       - name: Checkout
