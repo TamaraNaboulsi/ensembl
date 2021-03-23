@@ -43,17 +43,28 @@ jobs:
             coveralls: false
             database: sqlite
     
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+            - '8888:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    
     steps:
       - name: Checkout
         uses: actions/checkout@master
       
       - name: Before Script
         run: |
-          apt update && apt install sudo
-          sudo apt update
-          apt-get install -y default-mysql-server
-          apt-get install -y lsb-release
-          lsb_release -a
+          service mysql status
+#          apt update && apt install sudo
+#          sudo apt update
+#          apt-get install -y default-mysql-server
+#          apt-get install -y lsb-release
+#          lsb_release -a
       
       - name: Clone repos
         run: |
@@ -63,51 +74,49 @@ jobs:
           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
       
-      - uses: perl-actions/install-with-cpanm@v1
-        name: Install dependencies
-        with:
-          cpanfile: "cpanfile"
-          sudo: false
-          verbose: true
-          install: |
-            Devel::Cover
-            Devel::Cover::Report::Coveralls
-            Test::Exception
-            Moose
-            Devel::Cycle
-            Test::Warnings
-            DBD::SQLite
-            JSON
-            namespace::autoclean
-            Config::General
-            DBIx::Class::Schema
-            Text::Glob
-            Text::CSV
-            SQL::Translator
+#       - uses: perl-actions/install-with-cpanm@v1
+#         name: Install dependencies
+#         with:
+#           cpanfile: "cpanfile"
+#           sudo: false
+#           verbose: true
+#           install: |
+#             Devel::Cover
+#             Devel::Cover::Report::Coveralls
+#             Test::Exception
+#             Moose
+#             Devel::Cycle
+#             Test::Warnings
+#             DBD::SQLite
+#             JSON
+#             namespace::autoclean
+#             Config::General
+#             DBIx::Class::Schema
+#             Text::Glob
+#             Text::CSV
+#             SQL::Translator
       
-      - name: Copy mysql/sqlite conf files
-        run: |
-          cp travisci/MultiTestDB.conf.actions_containers.mysql modules/t/MultiTestDB.conf.mysql
-          cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
-          cp travisci/testdb.conf.actions_containers.mysql testdb.conf.mysql
-          cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
-          cp travisci/edited_runtests.pl ensembl-test/scripts/runtests.pl
+#       - name: Copy mysql/sqlite conf files
+#         run: |
+#           cp travisci/MultiTestDB.conf.actions_containers.mysql modules/t/MultiTestDB.conf.mysql
+#           cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
+#           cp travisci/testdb.conf.actions_containers.mysql testdb.conf.mysql
+#           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
+#           cp travisci/edited_runtests.pl ensembl-test/scripts/runtests.pl
       
-      - name: Configure mysql
+#       - name: Configure mysql
+#         run: |
+#           service mysql start
+#           mysql -e "CREATE USER 'github'@'%'" -u root -h localhost
+#           mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -h localhost
+#           mysql -e "SET GLOBAL local_infile=1" -u root -h localhost
+      
+#       - name: Run Test Suite
 #         env:
-#           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-        run: |
-          service mysql start
-          mysql -e "CREATE USER 'github'@'%'" -u root -h localhost
-          mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -h localhost
-          mysql -e "SET GLOBAL local_infile=1" -u root -h localhost
-      
-      - name: Run Test Suite
-        env:
-          DB: ${{ matrix.database }}
-          COVERALLS: false
-          USER: 'github'
-        run: ./travisci/harness.sh
+#           DB: ${{ matrix.database }}
+#           COVERALLS: false
+#           USER: 'github'
+#         run: ./travisci/harness.sh
 
 #       - if: ${{ matrix.COVERALLS }}
 #         name: Coveralls
