@@ -52,9 +52,7 @@ jobs:
           perl-version: ${{ matrix.perl }}
       
       - name: Before script
-        run: |
-          apt-get install -y lsb-release
-          lsb_release -a
+        run: lsb_release -a
       
       - name: Clone repos
         run: |
