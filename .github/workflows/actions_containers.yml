@@ -50,6 +50,7 @@ jobs:
           apt update && apt install sudo
           sudo apt update
           apt-get install -y default-mysql-server
+          lsb_release -a
       
       - name: Clone repos
         run: |
