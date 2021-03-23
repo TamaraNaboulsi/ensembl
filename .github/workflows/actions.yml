@@ -1,4 +1,4 @@
-name: New Testing Workflow
+name: Testing Workflow
 
 on:
   push:
@@ -9,17 +9,19 @@ jobs:
   run-tests:
     name: Run Tests
     runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
 
     strategy:
       matrix:
         perl: ['5.14', '5.26', '5.30']
         coveralls: [true, false]
         database: [mysql, sqlite]
-#        include:
-#           - perl: '5.30'
-#             container: 'tamaranaboulsi/test-repo:perl-5.030.004-custom'
-#             coveralls: false
-#             DB: mysql
+        container: ['tamaranaboulsi/test-repo:perl-5.014.004-custom']
+        include:
+          - perl: '5.30'
+            container: 'tamaranaboulsi/test-repo:perl-5.030.004-custom'
+            coveralls: false
+            DB: mysql
         exclude:
           - perl: '5.14'
             coveralls: true
@@ -33,6 +35,8 @@ jobs:
             database: sqlite
           - perl: 5.30
             coveralls: true
+          - perl: 5.30
+            container: 'tamaranaboulsi/test-repo:perl-5.014.004-custom'
           - perl: 5.30
             coveralls: false
             database: sqlite
@@ -96,64 +100,6 @@ jobs:
 
 
 
-
-# jobs:
-#   run-tests:
-#     name: Run Tests
-#     runs-on: ubuntu-latest
-#     container: ${{ matrix.container }}
-    
-#     strategy:
-#       matrix:
-#         perl: ['5.14', '5.26', '5.30']
-#         #perl: ['5.14', '5.30']
-#         COVERALLS: [true, false]
-#         DB: [mysql, sqlite]
-#         container: ['tamaranaboulsi/test-repo:perl-5.014.004-custom']
-        
-#         include:
-#           - perl: '5.30'
-#             container: 'tamaranaboulsi/test-repo:perl-5.030.004-custom'
-#             COVERALLS: false
-#             DB: mysql
-#         exclude:
-#           - perl: '5.14'
-#             COVERALLS: false
-#             DB: mysql
-#           - perl: '5.14'
-#             COVERALLS: true
-#             DB: mysql
-#           - perl: '5.14'
-#             COVERALLS: true
-#             DB: sqlite
-#           - perl: '5.26'
-#             COVERALLS: false
-#             DB: sqlite
-#           - perl: '5.26'
-#             COVERALLS: false
-#             DB: mysql
-#           - perl: '5.26'
-#             COVERALLS: true
-#             DB: sqlite
-#           - perl: '5.30'
-#             COVERALLS: false
-#             DB: sqlite
-#             container: 'tamaranaboulsi/test-repo:perl-5.014.004-custom'
-#           - perl: '5.30'
-#             COVERALLS: false
-#             DB: mysql
-#             container: 'tamaranaboulsi/test-repo:perl-5.014.004-custom'
-#           - perl: '5.30'
-#             COVERALLS: true
-#             DB: mysql
-#             container: 'tamaranaboulsi/test-repo:perl-5.014.004-custom'
-#           - perl: '5.30'
-#             COVERALLS: true
-#             DB: sqlite
-#             container: 'tamaranaboulsi/test-repo:perl-5.014.004-custom'
-    
-#     env:
-#       AUTH_TOKEN: Ju069PzB8QZG3302emIhyCEEQfVfVsiXy0nGcR6hue+vW9nE82NnOEZHbZIwUCXEjUaZRMVQ31Em70Ky22OrLK4D59bs2ClH21u8URDGD/cn7JNPGWFrgxuaXQKMQrw72doeB0+w1+ShURtqM41vITjinyU3y34RZ1NcbDwYSZI=
 
 #     steps:
 #       - name: Checkout
