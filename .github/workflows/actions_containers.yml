@@ -47,14 +47,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       
-      - if: ${{ matrix.container }} == 'ubuntu:trusty'
+      - if: ${{ matrix.container == 'ubuntu:trusty' }}
         name: Install mysql
         run: |
           apt-get install -y mysql-server
           mysql --version
           lsb_release -a
       
-      - if: ${{ matrix.container }} == 'ubuntu:focal'
+      - if: ${{ matrix.container == 'ubuntu:focal' }}
         name: Install mysql
         run: |
           apt-get install -y default-mysql-server
