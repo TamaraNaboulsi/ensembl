@@ -57,15 +57,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       
+      - name: Set up perl ${{ matrix.perl }}
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl }}
+
       - name: Before script
         run: |
-          lsb_release -a
           perl --version
-      
-#       - name: Set up perl ${{ matrix.perl }}
-#         uses: shogo82148/actions-setup-perl@v1
-#         with:
-#           perl-version: ${{ matrix.perl }}
+#          lsb_release -a
           
 #       - name: Before Script
 #         run: |
