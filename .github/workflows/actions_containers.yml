@@ -8,9 +8,8 @@ on:
 jobs:
   run-tests:
     name: Run Tests
-    runs-on: ${{ matrix.container }}
-#     runs-on: ubuntu-latest
-#     container: ${{ matrix.container }}
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
 
     strategy:
       matrix:
@@ -68,7 +67,7 @@ jobs:
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
-          distribution: strawberry
+#           distribution: strawberry
       
       - run: perl --version
           
