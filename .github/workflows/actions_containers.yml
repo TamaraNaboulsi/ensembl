@@ -43,23 +43,38 @@ jobs:
             coveralls: false
             database: sqlite
     
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+            - '8888:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    
     steps:
       - name: Checkout
         uses: actions/checkout@master
       
-      - if: ${{ matrix.container == 'ubuntu:trusty' }}
-        name: Install mysql
+      - name: Before script
         run: |
-          apt-get install mysql-server
-          mysql --version
+          mysql -V
           lsb_release -a
       
-      - if: ${{ matrix.container == 'ubuntu:focal' }}
-        name: Install mysql
-        run: |
-          apt install mysql-server
-          mysql --version
-          lsb_release -a
+#       - if: ${{ matrix.container == 'ubuntu:trusty' }}
+#         name: Install mysql
+#         run: |
+#           apt-get install mysql-server
+#           mysql --version
+#           lsb_release -a
+      
+#       - if: ${{ matrix.container == 'ubuntu:focal' }}
+#         name: Install mysql
+#         run: |
+#           apt install mysql-server
+#           mysql --version
+#           lsb_release -a
           
         
 #       - name: Before Script
