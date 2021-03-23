@@ -71,7 +71,8 @@ jobs:
       - run: |
           perl --version
           echo $HOME
-          ls $HOME/
+          echo $PERL5LIB
+          echo $PATH
           
 #       - name: Install mysql
 #         run: |
