@@ -67,26 +67,20 @@ jobs:
         uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: ${{ matrix.perl }}
-      
-#       - name: Check
-#         run: |
-#           perl --version
-#           lsb_release -a
           
-      - name: Install mysql
-        run: |
-          apt-get install -y lsb-release
-          lsb_release -a
-          mysql -V
+#       - name: Install mysql
+#         run: |
+#           apt-get install -y mysql-server
+#           mysql -V
 #          apt-get install -y mysql-server
 #          apt-get install -y default-mysql-server
           
 
-#       - name: Install dependencies
-#         run: |
-#           cpanm -v --sudo --installdeps --notest . --with-all-features
-#           cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
-#           cpanm -n --sudo DBD::SQLite JSON
+      - name: Install dependencies
+        run: |
+          cpanm -v --sudo --installdeps --notest . --with-all-features
+          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+          cpanm -n --sudo DBD::SQLite JSON
       
 #       - name: Clone repos
 #         run: |
