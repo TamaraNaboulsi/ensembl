@@ -58,25 +58,8 @@ jobs:
         uses: actions/checkout@master
       
       - name: Before script
-        run: |
-          mysql -V
-          lsb_release -a
-      
-#       - if: ${{ matrix.container == 'ubuntu:trusty' }}
-#         name: Install mysql
-#         run: |
-#           apt-get install mysql-server
-#           mysql --version
-#           lsb_release -a
-      
-#       - if: ${{ matrix.container == 'ubuntu:focal' }}
-#         name: Install mysql
-#         run: |
-#           apt install mysql-server
-#           mysql --version
-#           lsb_release -a
+        run: lsb_release -a
           
-        
 #       - name: Before Script
 #         run: |
 #           apt-get install -y mysql-server
@@ -86,13 +69,19 @@ jobs:
 #          apt-get install -y lsb-release
 #          lsb_release -a
       
-#       - name: Clone repos
-#         run: |
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-test.git
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-io.git
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-variation.git
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
-#           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
+      - name: Clone repos
+        run: |
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-test.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-io.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-variation.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
+          git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
+  
+      - name: Install dependencies
+        run: |
+          cpanm -v --sudo --installdeps --notest . --with-all-features
+          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+          cpanm -n --sudo DBD::SQLite JSON
       
 #       - uses: perl-actions/install-with-cpanm@v1
 #         name: Install dependencies
