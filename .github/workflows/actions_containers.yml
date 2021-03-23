@@ -71,7 +71,7 @@ jobs:
       - run: |
           perl --version
           echo $HOME
-          ls $HOME
+          ls $HOME/
           
 #       - name: Install mysql
 #         run: |
@@ -95,12 +95,12 @@ jobs:
 #           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
 #           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
       
-      - uses: perl-actions/install-with-cpanm@v1
-        name: Install dependencies
-        with:
-          cpanfile: "cpanfile"
-          sudo: false
-          verbose: true
+#       - uses: perl-actions/install-with-cpanm@v1
+#         name: Install dependencies
+#         with:
+#           cpanfile: "cpanfile"
+#           sudo: false
+#           verbose: true
 #           install: |
 #             Devel::Cover
 #             Devel::Cover::Report::Coveralls
