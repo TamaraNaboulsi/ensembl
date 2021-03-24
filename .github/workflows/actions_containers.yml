@@ -107,6 +107,9 @@ jobs:
 
       - if: ${{ matrix.coveralls }}
         name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Running Devel::Cover coveralls report"
+          cover --nosummary -report coveralls
+#         uses: coverallsapp/github-action@master
+#         with:
+#           github-token: ${{ secrets.GITHUB_TOKEN }}
