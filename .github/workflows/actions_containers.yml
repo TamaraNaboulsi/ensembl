@@ -103,7 +103,7 @@ jobs:
       - name: Run Test Suite
         env:
           DB: ${{ matrix.database }}
-          COVERALLS: false
+          COVERALLS: ${{ matrix.coveralls }}
           USER: 'github'
         run: ./travisci/harness.sh
 
