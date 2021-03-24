@@ -38,10 +38,10 @@ else
 fi
 
 if [ $rt -eq 0 ]; then
-#   if [ "$COVERALLS" = 'true' ]; then
-#     echo "Running Devel::Cover coveralls report"
-#     cover --nosummary -report coveralls
-#   fi
+  if [ "$COVERALLS" = 'true' ]; then
+    echo "Running Devel::Cover coveralls report"
+    cover --nosummary -report coveralls
+  fi
   exit $?
 else
   exit 255
