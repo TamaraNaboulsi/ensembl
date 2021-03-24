@@ -13,17 +13,18 @@ jobs:
 
     strategy:
       matrix:
-        perl: ['5.14', '5.26', '5.30']
+#         perl: ['5.14', '5.26', '5.30']
+        perl: ['5.14']
         coveralls: [true, false]
         database: [mysql, sqlite]
         container: ['ubuntu:trusty']
 #         container: ['tamaranaboulsi/test-repo:perl-5.014.004-custom']
-        include:
-          - perl: '5.30'
-#             container: 'tamaranaboulsi/test-repo:perl-5.030.004-custom'
-            container: 'ubuntu:focal'
-            coveralls: false
-            database: mysql
+#         include:
+#           - perl: '5.30'
+# #             container: 'tamaranaboulsi/test-repo:perl-5.030.004-custom'
+#             container: 'ubuntu:focal'
+#             coveralls: false
+#             database: mysql
         exclude:
           - perl: '5.14'
             coveralls: true
@@ -62,12 +63,25 @@ jobs:
           apt update && apt install sudo
           sudo apt-get update
           sudo apt-get install xz-utils
-          sudo apt-get purge --auto-remove perl -y
+          sudo apt-get install gcc cpp make
+          perl --version
+#          sudo apt-get purge --auto-remove perl -y
 
-      - name: Set up perl ${{ matrix.perl }}
-        uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: ${{ matrix.perl }}
+#       - name: Set up perl ${{ matrix.perl }}
+#         uses: shogo82148/actions-setup-perl@v1
+#         with:
+#           perl-version: ${{ matrix.perl }}
+      
+      - name: Install perl
+        run: |
+          git clone git://github.com/tokuhirom/plenv.git ~/.plenv
+          echo 'export PATH="$HOME/.plenv/bin:$PATH"' >> ~/.profile
+          echo 'eval "$(plenv init -)"' >> ~/.profile
+          exec $SHELL -l
+          git clone git://github.com/tokuhirom/Perl-Build.git ~/.plenv/plugins/perl-build/
+          plenv install -j 9 -D usethreads -D man1dir=none -D man3dir=none 5.14.4
+          plenv rehash
+          plenv local 5.14.4
       
       - run: |
           perl --version
