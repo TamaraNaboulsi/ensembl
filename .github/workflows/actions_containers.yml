@@ -41,44 +41,17 @@ jobs:
             coveralls: false
             database: sqlite
     
-#     services:
-#       mysql:
-#         image: mysql:latest
-#         env:
-#           MYSQL_ROOT_PASSWORD: secret
-#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-#         ports:
-#             - '8888:3306'
-#         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-    
     steps:
       - name: Checkout
         uses: actions/checkout@master
       
-      - name: Before script
+      - name: Before Script
         run: |
           apt update && apt install sudo
-          sudo apt-get update
+          sudo apt update
           apt-get install -y default-mysql-server
-
-      - name: Set up perl ${{ matrix.perl }}
-        uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: ${{ matrix.perl }}
-      
-#       - name: Install mysql
-#         run: |
-#           apt-get install -y mysql-server
-#           mysql -V
-#          apt-get install -y mysql-server
-#          apt-get install -y default-mysql-server
-          
-
-#       - name: Install dependencies
-#         run: |
-#           cpanm -v --sudo --installdeps --notest . --with-all-features
-#           cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
-#           cpanm -n --sudo DBD::SQLite JSON
+          apt-get install -y lsb-release
+          lsb_release -a
       
       - name: Clone repos
         run: |
@@ -119,6 +92,8 @@ jobs:
           cp travisci/edited_runtests.pl ensembl-test/scripts/runtests.pl
       
       - name: Configure mysql
+#         env:
+#           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           service mysql start
           mysql -e "CREATE USER 'github'@'%'" -u root -h localhost
