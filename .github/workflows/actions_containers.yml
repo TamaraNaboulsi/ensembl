@@ -64,10 +64,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install xz-utils
           sudo apt-get -y install git
-          perl --version
+          perl -V
           echo $HOME
           echo $PERL5LIB
           echo $PATH
+          which perl 
 #          sudo apt-get purge --auto-remove perl -y
 
       - name: Set up perl ${{ matrix.perl }}
@@ -76,10 +77,11 @@ jobs:
           perl-version: ${{ matrix.perl }}
       
       - run: |
-          perl --version
+          perl -V
           echo $HOME
           echo $PERL5LIB
           echo $PATH
+          which perl 
           
 #       - name: Install mysql
 #         run: |
@@ -89,11 +91,11 @@ jobs:
 #          apt-get install -y default-mysql-server
           
 
-      - name: Install dependencies
-        run: |
-          echo $PERL5LIB
-          echo $PATH
-          cpanm -v --sudo --installdeps --notest . --with-all-features
+#       - name: Install dependencies
+#         run: |
+#           echo $PERL5LIB
+#           echo $PATH
+#           cpanm -v --sudo --installdeps --notest . --with-all-features
 #          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
 #          cpanm -n --sudo DBD::SQLite JSON
       
