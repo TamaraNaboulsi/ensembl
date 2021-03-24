@@ -64,25 +64,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install xz-utils
           sudo apt-get -y install git
-          sudo apt-get -y install dh-exec.
           perl --version
+          echo $HOME
+          echo $PERL5LIB
+          echo $PATH
 #          sudo apt-get purge --auto-remove perl -y
 
-#       - name: Set up perl ${{ matrix.perl }}
-#         uses: shogo82148/actions-setup-perl@v1
-#         with:
-#           perl-version: ${{ matrix.perl }}
-      
-      - name: Install perl
-        run: |
-          git clone git://github.com/tokuhirom/plenv.git ~/.plenv
-          echo 'export PATH="$HOME/.plenv/bin:$PATH"' >> ~/.profile
-          echo 'eval "$(plenv init -)"' >> ~/.profile
-          exec $SHELL -l
-          git clone git://github.com/tokuhirom/Perl-Build.git ~/.plenv/plugins/perl-build/
-          plenv install -j 9 -D usethreads -D man1dir=none -D man3dir=none 5.14.4
-          plenv rehash
-          plenv local 5.14.4
+      - name: Set up perl ${{ matrix.perl }}
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl }}
       
       - run: |
           perl --version
