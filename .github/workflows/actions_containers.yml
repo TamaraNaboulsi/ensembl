@@ -92,8 +92,6 @@ jobs:
           cp travisci/edited_runtests.pl ensembl-test/scripts/runtests.pl
       
       - name: Configure mysql
-#         env:
-#           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: |
           service mysql start
           mysql -e "CREATE USER 'github'@'%'" -u root -h localhost
@@ -103,12 +101,12 @@ jobs:
       - name: Run Test Suite
         env:
           DB: ${{ matrix.database }}
-          COVERALLS: ${{ matrix.coveralls }}
+          COVERALLS: false
           USER: 'github'
         run: ./travisci/harness.sh
 
-#       - if: ${{ matrix.COVERALLS }}
-#         name: Coveralls
-#         uses: coverallsapp/github-action@master
-#         with:
-#           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - if: ${{ matrix.coveralls }}
+        name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
