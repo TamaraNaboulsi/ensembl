@@ -85,6 +85,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          echo $PERL5LIB
+          echo $PATH
           cpanm -v --sudo --installdeps --notest . --with-all-features
 #          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
 #          cpanm -n --sudo DBD::SQLite JSON
