@@ -101,15 +101,14 @@ jobs:
       - name: Run Test Suite
         env:
           DB: ${{ matrix.database }}
-          COVERALLS: false
+          COVERALLS: ${{ matrix.coveralls }}
           USER: 'github'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: ./travisci/harness.sh
 
-      - if: ${{ matrix.coveralls }}
-        name: Coveralls
-        run: |
-          echo "Running Devel::Cover coveralls report"
-          cover --nosummary -report coveralls
+#       - if: ${{ matrix.coveralls }}
+#         name: Coveralls
 #         uses: coverallsapp/github-action@master
 #         with:
 #           github-token: ${{ secrets.GITHUB_TOKEN }}
