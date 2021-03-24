@@ -83,9 +83,9 @@ jobs:
 #          apt-get install -y default-mysql-server
           
 
-#       - name: Install dependencies
-#         run: |
-#           cpanm -v --sudo --installdeps --notest . --with-all-features
+      - name: Install dependencies
+        run: |
+          cpanm -v --sudo --installdeps --notest . --with-all-features
 #          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
 #          cpanm -n --sudo DBD::SQLite JSON
       
