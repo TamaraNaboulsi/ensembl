@@ -63,6 +63,7 @@ jobs:
           apt update && apt install sudo
           sudo apt-get update
           sudo apt-get install xz-utils
+          sudo apt-get install git
           perl --version
 #          sudo apt-get purge --auto-remove perl -y
 
