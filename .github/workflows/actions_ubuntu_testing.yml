@@ -69,16 +69,16 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       
-      - uses: perl-actions/install-with-cpanm@v1
-        name: Install dependencies
-        with:
-          cpanfile: "cpanfile"
-          sudo: true
-          verbose: true
+#       - uses: perl-actions/install-with-cpanm@v1
+#         name: Install dependencies
+#         with:
+#           cpanfile: "cpanfile"
+#           sudo: true
+#           verbose: true
       
-#       - name: Install dependencies
-#         run: |
-#           cpanm -v --sudo --installdeps --notest . --with-all-features
+      - name: Install dependencies
+        run: |
+          cpanm -v --sudo --installdeps --notest . --with-all-features
 #          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
 #          cpanm -n --sudo DBD::SQLite JSON
       
