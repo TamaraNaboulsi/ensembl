@@ -48,7 +48,7 @@ jobs:
 #           MYSQL_ROOT_PASSWORD: secret
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         ports:
-          - '8888:3306'
+          - '3306:3306'
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     
     steps:
@@ -71,5 +71,6 @@ jobs:
         run: |
           lsb_release -a
           perl --version
-          mysqld --version
-          mysqladmin -V
+          mysqladmin ping
+#          mysqld --version
+#          mysqladmin -V
