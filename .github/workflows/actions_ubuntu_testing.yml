@@ -70,10 +70,7 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       
-      - run: |
-          ldd --version
-          sudo apt-get install -y glibc-doc
-          ldd --version
+      - run: sudo apt-get install -y cpanminus
       
       - name: Install dependencies
         run: |
