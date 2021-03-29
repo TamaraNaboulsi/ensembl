@@ -68,6 +68,8 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       
+      - run: perl -V:make
+      
       - uses: perl-actions/install-with-cpanm@v1
         name: Install dependencies
         with:
