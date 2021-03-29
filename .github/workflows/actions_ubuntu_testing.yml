@@ -1,0 +1,60 @@
+name: Testing Workflow (ubuntu versions)
+
+on:
+  push:
+    branches:
+      - github_actions_testing
+
+jobs:
+  run-tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
+
+    strategy:
+      matrix:
+        perl: ['5.14', '5.26', '5.30']
+        coveralls: [true, false]
+        database: [mysql, sqlite]
+        container: ['ubuntu:trusty']
+        include:
+          - perl: '5.30'
+            container: 'ubuntu:focal'
+            coveralls: false
+            database: mysql
+        exclude:
+          - perl: '5.14'
+            coveralls: true
+          - perl: '5.14'
+            coveralls: false
+            database: mysql
+          - perl: '5.26'
+            coveralls: false
+          - perl: '5.26'
+            coveralls: true
+            database: sqlite
+          - perl: 5.30
+            coveralls: true
+          - perl: '5.30'
+            container: 'ubuntu:trusty'
+          - perl: 5.30
+            coveralls: false
+            database: sqlite
+
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - '8888:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      
+      - name: Before
+        run: |
+          mysql --version
