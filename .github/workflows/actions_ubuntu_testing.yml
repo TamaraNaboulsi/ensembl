@@ -65,7 +65,7 @@ jobs:
           sudo apt-get install -y libdb-dev libgd-dev libssl-dev sqlite3 uuid-dev
           sudo apt-get clean
           mysql --version
-          service mysql status
+          service mysql start
 #          sudo apt-get install -y build-essential
       
       - name: Set up perl ${{ matrix.perl }}
