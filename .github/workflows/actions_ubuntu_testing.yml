@@ -91,8 +91,7 @@ jobs:
       
       - name: Configure mysql
         run: |
-          mysql -V
-          service mysql status
+          sudo service mysql status
 #          sudo service mysql start
 #          mysql -e "CREATE USER 'github'@'%'" -u root -psecret -h localhost --port 8888
 #          mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
