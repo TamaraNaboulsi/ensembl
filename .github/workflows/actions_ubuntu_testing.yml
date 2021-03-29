@@ -41,15 +41,15 @@ jobs:
             coveralls: false
             database: sqlite
 
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_ROOT_PASSWORD: secret
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        ports:
-          - '8888:3306'
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+#     services:
+#       mysql:
+#         image: mysql:latest
+#         env:
+#           MYSQL_ROOT_PASSWORD: secret
+#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#         ports:
+#           - '8888:3306'
+#         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     
     steps:
       - name: Checkout
@@ -91,7 +91,8 @@ jobs:
       
       - name: Configure mysql
         run: |
-          sudo service mysql status
+          sudo apt-get install -y mysql-server
+          mysql --version
 #          sudo service mysql start
 #          mysql -e "CREATE USER 'github'@'%'" -u root -psecret -h localhost --port 8888
 #          mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
