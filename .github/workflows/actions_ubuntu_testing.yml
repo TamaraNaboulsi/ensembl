@@ -68,8 +68,8 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       
-#       - name: Before
-#         run: |
+      - name: Before
+        run: sudo mysql service status
 #           sudo apt-get -y install lsb-release
 #           lsb_release -a
 #           perl --version
