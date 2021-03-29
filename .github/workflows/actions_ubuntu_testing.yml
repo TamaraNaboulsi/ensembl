@@ -71,9 +71,9 @@ jobs:
           perl-version: ${{ matrix.perl }}
       
       - run: |
-        ldd --version
-        sudo apt-get install -y glibc-doc
-        ldd --version
+          ldd --version
+          sudo apt-get install -y glibc-doc
+          ldd --version
       
 #       - uses: perl-actions/install-with-cpanm@v1
 #         name: Install dependencies
