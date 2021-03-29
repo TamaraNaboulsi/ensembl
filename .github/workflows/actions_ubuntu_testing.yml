@@ -74,26 +74,14 @@ jobs:
           sudo apt-get install -y libdbd-mysql-perl
           sudo apt-get install -y cpanminus
           sudo apt-get install -y libssl-dev
+          sudo apt install -y build-essential checkinstall zlib1g-dev
       
-      - name: Openssl
+      - name: Install dependencies
         run: |
-          sudo apt install build-essential checkinstall zlib1g-dev -y
-          mkdir ~/perl5/perlbrew/openssl
-          cd ~/perl5/perlbrew/openssl
-          wget https://www.openssl.org/source/openssl-1.1.1.tar.gz  [replace with latest LTS version]
-          tar -xf openssl-1.1.1.tar.gz
-          cd openssl-1.1.1
-          ./config shared --prefix=$PERLBREW_ROOT/openssl
-          make
-          make test
-          sudo cpanm install Net::SSLeay
-      
-#       - name: Install dependencies
-#         run: |
-#           sudo cpanm -v --installdeps --notest . --with-all-features
-#           sudo cpanm -v Net::SSLeay
-#           sudo cpanm -n Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
-#           sudo cpanm -n DBD::SQLite JSON
+          sudo cpanm -v --installdeps --notest . --with-all-features
+          sudo cpanm -v Net::SSLeay
+          sudo cpanm -n Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+          sudo cpanm -n DBD::SQLite JSON
       
 #       - name: Before
 #         run: mysql --version
