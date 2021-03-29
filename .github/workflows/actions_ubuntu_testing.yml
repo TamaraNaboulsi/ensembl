@@ -63,7 +63,8 @@ jobs:
           sudo apt-get install -y build-essential
           sudo apt-get install -y git
           sudo apt-get install -y mysql-client
-          ldd --version
+          sudo apt-get install libdbd-mysql-perl
+#          ldd --version
       
       - name: Set up perl ${{ matrix.perl }}
         uses: shogo82148/actions-setup-perl@v1
@@ -74,7 +75,6 @@ jobs:
       
       - name: Install dependencies
         run: |
-          sudo cpanm install DBD::mysql
           sudo cpanm -v --installdeps --notest . --with-all-features
 #          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
 #          cpanm -n --sudo DBD::SQLite JSON
