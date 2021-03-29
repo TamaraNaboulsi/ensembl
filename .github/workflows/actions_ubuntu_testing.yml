@@ -92,6 +92,6 @@ jobs:
       
       - name: Configure mysql
         run: |
-          mysql -e "CREATE USER 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
-          mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
-          mysql -e "SET GLOBAL local_infile=1" -u root -psecret -h 127.0.0.1 --port 8888
+          mysql -e "CREATE USER 'github'@'%'" -u root -psecret -h localhost --port 8888
+#          mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
+#          mysql -e "SET GLOBAL local_infile=1" -u root -psecret -h 127.0.0.1 --port 8888
