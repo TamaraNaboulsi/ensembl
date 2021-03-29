@@ -71,8 +71,8 @@ jobs:
       - name: Install dependencies
         run: |
           cpanm -v --sudo --installdeps --notest . --with-all-features
-          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
-          cpanm -n --sudo DBD::SQLite JSON
+#          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+#          cpanm -n --sudo DBD::SQLite JSON
       
 #       - name: Before
 #         run: mysql --version
