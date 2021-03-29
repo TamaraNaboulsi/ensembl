@@ -63,7 +63,7 @@ jobs:
           sudo apt-get install -y build-essential
           sudo apt-get install -y git
           sudo apt-get install -y mysql-client
-          sudo apt-get install libdbd-mysql-perl
+          sudo apt-get install -y libdbd-mysql-perl
 #          ldd --version
       
       - name: Set up perl ${{ matrix.perl }}
