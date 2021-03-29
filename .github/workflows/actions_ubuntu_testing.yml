@@ -68,8 +68,14 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       
-      - name: Before
-        run: mysql --version
+      - name: Install dependencies
+        run: |
+          cpanm -v --sudo --installdeps --notest . --with-all-features
+          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+          cpanm -n --sudo DBD::SQLite JSON
+      
+#       - name: Before
+#         run: mysql --version
 #           sudo apt-get -y install lsb-release
 #           lsb_release -a
 #           perl --version
