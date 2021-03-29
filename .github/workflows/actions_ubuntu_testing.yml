@@ -45,10 +45,10 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-#           MYSQL_ROOT_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: secret
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         ports:
-          - '3306:3306'
+          - '8888:3306'
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     
     steps:
@@ -83,11 +83,15 @@ jobs:
           sudo cpanm -n Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
           sudo cpanm -n DBD::SQLite JSON
       
-#       - name: Before
-#         run: mysql --version
-#           sudo apt-get -y install lsb-release
-#           lsb_release -a
-#           perl --version
-#           mysqladmin ping
-#          mysqld --version
-#          mysqladmin -V
+      - name: Copy mysql/sqlite conf files
+        run: |
+          cp travisci/MultiTestDB.conf.actions_containers.mysql modules/t/MultiTestDB.conf.mysql
+          cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
+          cp travisci/testdb.conf.actions_containers.mysql testdb.conf.mysql
+          cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
+      
+      - name: Configure mysql
+        run: |
+          mysql -e "CREATE USER 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
+          mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
+          mysql -e "SET GLOBAL local_infile=1" -u root -psecret -h 127.0.0.1 --port 8888
