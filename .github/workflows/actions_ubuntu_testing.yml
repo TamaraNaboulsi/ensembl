@@ -60,6 +60,11 @@ jobs:
           apt update && apt install sudo
           sudo apt-get update
           sudo apt-get install -y xz-utils
+          sudo apt-get -y dist-upgrade
+          sudo apt-get install -y build-essential cpanminus git checkinstall zlib1g-dev
+          sudo apt-get install -y default-libmysqlclient-dev default-mysql-client libdbd-mysql-perl
+          sudo apt-get install -y libdb-dev libgd-dev libssl-dev sqlite3 uuid-dev
+          sudo apt-get clean
 #          sudo apt-get install -y build-essential
       
       - name: Set up perl ${{ matrix.perl }}
@@ -67,13 +72,13 @@ jobs:
         with:
           perl-version: ${{ matrix.perl }}
       
-      - name: Install needed packages
-        run: |
-          sudo apt-get install -y git
-          sudo apt-get install -y libdbd-mysql-perl
-          sudo apt-get install -y cpanminus
-          sudo apt-get install -y libssl-dev
-          sudo apt install -y build-essential checkinstall zlib1g-dev
+#       - name: Install needed packages
+#         run: |
+#           sudo apt-get install -y git
+#           sudo apt-get install -y libdbd-mysql-perl
+#           sudo apt-get install -y cpanminus
+#           sudo apt-get install -y libssl-dev
+#           sudo apt install -y build-essential checkinstall zlib1g-dev
       
       - name: Install dependencies
         run: |
@@ -82,17 +87,17 @@ jobs:
           sudo cpanm -n Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
           sudo cpanm -n DBD::SQLite JSON
       
-      - name: Copy mysql/sqlite conf files
-        run: |
-          cp travisci/MultiTestDB.conf.actions_containers.mysql modules/t/MultiTestDB.conf.mysql
-          cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
-          cp travisci/testdb.conf.actions_containers.mysql testdb.conf.mysql
-          cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
+#       - name: Copy mysql/sqlite conf files
+#         run: |
+#           cp travisci/MultiTestDB.conf.actions_containers.mysql modules/t/MultiTestDB.conf.mysql
+#           cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
+#           cp travisci/testdb.conf.actions_containers.mysql testdb.conf.mysql
+#           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
       
-      - name: Configure mysql
-        run: |
-          sudo apt-get install -y mysql-server
-          mysql --version
+#       - name: Configure mysql
+#         run: |
+#           sudo apt-get install -y mysql-server
+#           mysql --version
 #          sudo service mysql start
 #          mysql -e "CREATE USER 'github'@'%'" -u root -psecret -h localhost --port 8888
 #          mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
