@@ -75,15 +75,9 @@ jobs:
           sudo apt-get install -y glibc-doc
           ldd --version
       
-#       - uses: perl-actions/install-with-cpanm@v1
-#         name: Install dependencies
-#         with:
-#           cpanfile: "cpanfile"
-#           sudo: true
-#           verbose: true
-      
-#       - name: Install dependencies
-#         run: |
+      - name: Install dependencies
+        run: |
+          sudo cpanm install JSON
 #           cpanm -v --sudo --installdeps --notest . --with-all-features
 #          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
 #          cpanm -n --sudo DBD::SQLite JSON
