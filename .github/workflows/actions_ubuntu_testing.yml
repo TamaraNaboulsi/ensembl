@@ -69,6 +69,7 @@ jobs:
       
       - name: Before
         run: |
+          sudo apt-get -y install lsb_release
           lsb_release -a
           perl --version
           mysqladmin ping
