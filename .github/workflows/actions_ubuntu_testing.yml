@@ -64,8 +64,8 @@ jobs:
           sudo apt-get install -y libmysqlclient-dev mysql-client libdbd-mysql-perl mysql-server
           sudo apt-get install -y libdb-dev libgd-dev libssl-dev sqlite3 uuid-dev
           sudo apt-get clean
-          mysql --version
-          service mysql start
+#          mysql --version
+#          service mysql start
 #          sudo apt-get install -y build-essential
       
       - name: Set up perl ${{ matrix.perl }}
@@ -95,8 +95,9 @@ jobs:
 #           cp travisci/testdb.conf.actions_containers.mysql testdb.conf.mysql
 #           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
       
-#       - name: Configure mysql
-#         run: |
+      - name: Configure mysql
+        run: |
+          mysql -e "CREATE USER 'github'@'%'" -u root localhost
 #           sudo apt-get install -y mysql-server
 #           mysql --version
 #          sudo service mysql start
