@@ -41,15 +41,15 @@ jobs:
             coveralls: false
             database: sqlite
 
-#     services:
-#       mysql:
-#         image: mysql:latest
-#         env:
-#           MYSQL_ROOT_PASSWORD: secret
-#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-#         ports:
-#           - '8888:3306'
-#         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - '8888:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     
     steps:
       - name: Checkout
