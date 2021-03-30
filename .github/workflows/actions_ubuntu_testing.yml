@@ -58,8 +58,8 @@ jobs:
       - name: Environment setup
         run: |
           apt update && apt install sudo
-          sudo apt-get update
-          sudo apt-get install -y apt-utils xz-utils build-essential cpanminus git checkinstall zlib1g-dev
+          sudo apt-get install -y apt-utils
+          sudo apt-get install -y xz-utils build-essential cpanminus git checkinstall zlib1g-dev
           sudo apt-get install -y libmysqlclient-dev mysql-client libdbd-mysql-perl
           sudo apt-get install -y libdb-dev libgd-dev libssl-dev sqlite3 uuid-dev
           sudo apt-get clean
