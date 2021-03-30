@@ -59,10 +59,9 @@ jobs:
         run: |
           apt update && apt install sudo
           sudo apt-get update
-          sudo apt-get -y dist-upgrade
-          sudo apt-get install -y xz-utils build-essential cpanminus git checkinstall zlib1g-dev
+          sudo apt-get install -y apt-utils xz-utils build-essential cpanminus git checkinstall zlib1g-dev
           sudo apt-get install -y libmysqlclient-dev mysql-client libdbd-mysql-perl
-          sudo apt-get install -y libdb-dev libgd-dev libssl-dev sqlite3
+          sudo apt-get install -y libdb-dev libgd-dev libssl-dev sqlite3 uuid-dev
           sudo apt-get clean
 #          sudo service mysql start
 #          mysql --version
@@ -76,10 +75,11 @@ jobs:
       
 #       - name: Install needed packages
 #         run: |
-#           sudo apt-get install -y git    uuid-dev
+#           sudo apt-get install -y git    
 #           sudo apt-get install -y libdbd-mysql-perl
 #           sudo apt-get install -y cpanminus
 #           sudo apt-get install -y libssl-dev
+# sudo apt-get -y dist-upgrade
 #           sudo apt install -y build-essential checkinstall zlib1g-dev
       
       - name: Install dependencies
