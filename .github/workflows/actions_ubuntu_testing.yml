@@ -42,15 +42,15 @@ jobs:
             coveralls: false
             database: sqlite
 
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_ROOT_PASSWORD: secret
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        ports:
-          - '8888:3306'
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+#     services:
+#       mysql:
+#         image: mysql:latest
+#         env:
+#           MYSQL_ROOT_PASSWORD: secret
+#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#         ports:
+#           - '8888:3306'
+#         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     
     steps:
       - name: Checkout
@@ -98,9 +98,20 @@ jobs:
 #           cp travisci/testdb.conf.actions_containers.mysql testdb.conf.mysql
 #           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
       
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3800 # Optional, default value is 3306. The port of host
+          container port: 3307 # Optional, default value is 3306. The port of container
+          character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
+          collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
+          mysql version: '5.7' # Optional, default value is "latest". The version of the MySQL
+#           mysql database: 'some_test' # Optional, default value is "test". The specified database which will be create
+          mysql root password: 'secret' # Required if "mysql user" is empty, default is empty. The root superuser password
+#           mysql user: 'github' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+#           mysql password: ${{ secrets.DatabasePassword }}
+      
       - name: Configure mysql
         run: |
-          service mysqld start
           mysql --version
           mysql -e "CREATE USER 'github'@'%'" -u root -h localhost --port 8888 -psecret
 #           sudo apt-get install -y mysql-server
