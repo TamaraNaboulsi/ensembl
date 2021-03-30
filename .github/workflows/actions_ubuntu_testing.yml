@@ -98,7 +98,7 @@ jobs:
       
       - name: Configure mysql
         run: |
-          mysql -e "CREATE USER 'github'@'%'" -u root localhost
+          mysql -e "CREATE USER 'github'@'%'" -u root -h localhost
 #           sudo apt-get install -y mysql-server
 #           mysql --version
 #          sudo service mysql start
