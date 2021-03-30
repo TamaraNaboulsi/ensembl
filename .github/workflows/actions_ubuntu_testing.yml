@@ -99,6 +99,7 @@ jobs:
       
       - name: Configure mysql
         run: |
+          service mysql start
           mysql --version
           mysql -e "CREATE USER 'github'@'%'" -u root -h localhost --port 8888 -psecret
 #           sudo apt-get install -y mysql-server
