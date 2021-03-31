@@ -112,8 +112,12 @@ jobs:
       
       - name: Configure mysql
         run: |
+          sudo apt-get remove --purge mysql*
+          sudo apt-get purge mysql*
+          sudo apt-get autoremove
+          sudo apt-get autoclean
+          sudo apt-get remove dbconfig-mysql
           mysql --version
-          mysql -V
 #          mysql -e "CREATE USER 'github'@'%'" -u root -h localhost --port 3800 -psecret
 #           sudo apt-get install -y mysql-server
 #           mysql --version
