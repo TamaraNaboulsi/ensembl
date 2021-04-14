@@ -23,8 +23,7 @@ jobs:
           lsb_release -a
           sudo apt-get update
           sudo apt-get install -y apt-utils xz-utils build-essential cpanminus
-          sudo apt-get install -y mysql-client
-#          sudo apt-get install -y libmysqlclient-dev mysql-client libdbd-mysql-perl
+          sudo apt-get install -y libmysqlclient-dev mysql-client libdbd-mysql-perl
       
       - name: Set up perl 5.14
         uses: shogo82148/actions-setup-perl@v1
