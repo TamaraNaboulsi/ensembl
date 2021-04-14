@@ -1,0 +1,59 @@
+name: Testing Workflow (only perl 5.30)
+
+on:
+  push:
+    branches:
+      - github_actions_testing
+
+jobs:
+  run-tests-5-30:
+    name: Run Tests for perl 5.30
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+            - '8888:3306'
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      
+      - name: Set up perl 5.30
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: 5.30
+      
+      - name: Clone repos
+        run: |
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-test.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-io.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-variation.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
+          git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
+      
+      - name: Install dependencies
+        run: |
+          cpanm -v --sudo --installdeps --notest . --with-all-features
+          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+          cpanm -n --sudo DBD::SQLite JSON
+      
+      - name: Copy mysql/sqlite conf files
+        run: |
+          cp travisci/MultiTestDB.conf.actions_no_containers.mysql modules/t/MultiTestDB.conf.mysql
+          cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
+          cp travisci/testdb.conf.actions_no_containers.mysql testdb.conf.mysql
+          cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
+          cp travisci/edited_runtests.pl ensembl-test/scripts/runtests.pl
+      
+      - name: Configure mysql
+        run: |
+          sudo service mysql start
+          mysql -e "CREATE USER 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
+          mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
+          mysql -e "SET GLOBAL local_infile=1" -u root -psecret -h 127.0.0.1 --port 8888
