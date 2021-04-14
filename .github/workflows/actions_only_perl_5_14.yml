@@ -31,7 +31,9 @@ jobs:
       - name: Before
         run: |
           lsb_release -a
-          sudo apt-get install -y xz-utils cpanminus 
+          sudo apt-get install -y apt-utils
+          sudo apt-get install -y xz-utils
+          sudo apt-get install -y cpanminus 
       
       - name: Set up perl 5.14
         uses: shogo82148/actions-setup-perl@v1
