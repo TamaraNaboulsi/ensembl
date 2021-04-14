@@ -46,11 +46,11 @@ jobs:
 #           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
 #           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
       
-#       - name: Install dependencies
-#         run: |
-#           cpanm -v --sudo --installdeps --notest . --with-all-features
-#           cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
-#           cpanm -n --sudo DBD::SQLite JSON
+      - name: Install dependencies
+        run: |
+          cpanm -v --sudo --installdeps --notest . --with-all-features
+          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+          cpanm -n --sudo DBD::SQLite JSON
       
 #       - name: Copy mysql/sqlite conf files
 #         run: |
