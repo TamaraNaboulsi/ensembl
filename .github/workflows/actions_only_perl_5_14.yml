@@ -22,10 +22,9 @@ jobs:
         run: |
           lsb_release -a
           sudo apt-get update
-          sudo apt-get install -y apt-utils
-          sudo apt-get install -y xz-utils
-          sudo apt-get install -y build-essential
-          sudo apt-get install -y cpanminus 
+          sudo apt-get install -y apt-utils xz-utils build-essential cpanminus
+          sudo apt-get install -y mysql-client
+#          sudo apt-get install -y libmysqlclient-dev mysql-client libdbd-mysql-perl
       
       - name: Set up perl 5.14
         uses: shogo82148/actions-setup-perl@v1
@@ -42,7 +41,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          cpanm -n --sudo DBI DBD::mysql
+          cpanm -n --sudo DBD::mysql
           cpanm -v --sudo --installdeps --notest . --with-all-features
 #          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
 #          cpanm -n --sudo DBD::SQLite JSON
