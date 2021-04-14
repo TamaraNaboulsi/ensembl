@@ -9,6 +9,7 @@ jobs:
   run-tests-5-14:
     name: Run Tests for perl 5.14
     runs-on: ubuntu-latest
+    container: ubuntu:trusty
     
     services:
       mysql:
@@ -24,8 +25,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       
-      - name: Set up ubuntu container
-        uses: docker://ubuntu:trusty
+#       - name: Set up ubuntu container
+#         uses: docker://ubuntu:trusty
       
       - run: lsb_release -a
       
