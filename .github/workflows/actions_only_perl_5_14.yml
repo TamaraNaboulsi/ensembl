@@ -9,8 +9,7 @@ jobs:
   run-tests-5-14:
     name: Run Tests for perl 5.14
     runs-on: ubuntu-latest
-    container:
-      image: docker://ubuntu:trusty
+    container: ubuntu:trusty
     
     services:
       mysql:
@@ -29,7 +28,10 @@ jobs:
 #       - name: Set up ubuntu container
 #         uses: docker://ubuntu:trusty
       
-      - run: lsb_release -a
+      - name: Before
+        run: |
+          lsb_release -a
+          sudo apt-get install xz-utils
       
       - name: Set up perl 5.14
         uses: shogo82148/actions-setup-perl@v1
