@@ -11,16 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     container: ubuntu:trusty
     
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_ROOT_PASSWORD: secret
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        ports:
-            - '8888:3306'
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-    
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -52,7 +42,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          cpanm -n --sudo DBD::mysql
+          cpanm -n --sudo DBI DBD::mysql
           cpanm -v --sudo --installdeps --notest . --with-all-features
 #          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
 #          cpanm -n --sudo DBD::SQLite JSON
