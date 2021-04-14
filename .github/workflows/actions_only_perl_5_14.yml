@@ -22,7 +22,7 @@ jobs:
         run: |
           lsb_release -a
           sudo apt-get update
-          sudo apt-get install -y apt-utils xz-utils build-essential cpanminus
+          sudo apt-get install -y apt-utils xz-utils build-essential cpanminus git
           sudo apt-get install -y libmysqlclient-dev mysql-client libdbd-mysql-perl
       
       - name: Set up perl 5.14
