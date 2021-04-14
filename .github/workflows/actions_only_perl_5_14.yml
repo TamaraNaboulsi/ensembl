@@ -31,6 +31,7 @@ jobs:
       - name: Before
         run: |
           lsb_release -a
+          sudo apt-get update
           sudo apt-get install -y apt-utils
           sudo apt-get install -y xz-utils
           sudo apt-get install -y cpanminus 
