@@ -30,13 +30,13 @@ jobs:
         with:
           perl-version: '5.14'
       
-#       - name: Clone repos
-#         run: |
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-test.git
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-io.git
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-variation.git
-#           git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
-#           git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
+      - name: Clone repos
+        run: |
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-test.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-io.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-variation.git
+          git clone --branch master --depth 1 https://github.com/Ensembl/ensembl-compara.git
+          git clone -b release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
       
       - name: Install dependencies
         run: |
@@ -44,13 +44,13 @@ jobs:
           cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
           cpanm -n --sudo DBD::SQLite JSON
       
-#       - name: Copy mysql/sqlite conf files
-#         run: |
-#           cp travisci/MultiTestDB.conf.actions_no_containers.mysql modules/t/MultiTestDB.conf.mysql
-#           cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
-#           cp travisci/testdb.conf.actions_no_containers.mysql testdb.conf.mysql
-#           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
-#           cp travisci/edited_runtests.pl ensembl-test/scripts/runtests.pl
+      - name: Copy mysql/sqlite conf files
+        run: |
+          cp travisci/MultiTestDB.conf.actions_no_containers.mysql modules/t/MultiTestDB.conf.mysql
+          cp travisci/MultiTestDB.conf.actions.SQLite modules/t/MultiTestDB.conf.SQLite
+          cp travisci/testdb.conf.actions_no_containers.mysql testdb.conf.mysql
+          cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
+          cp travisci/edited_runtests.pl ensembl-test/scripts/runtests.pl
       
 #       - name: Configure mysql
 #         run: |
