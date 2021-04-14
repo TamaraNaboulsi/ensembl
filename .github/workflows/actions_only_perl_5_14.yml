@@ -9,7 +9,7 @@ jobs:
   run-tests-5-14:
     name: Run Tests for perl 5.14
     runs-on: ubuntu-latest
-    container: 'ubuntu:trusty'
+    container: 'ubuntu:14.04'
     
     services:
       mysql:
