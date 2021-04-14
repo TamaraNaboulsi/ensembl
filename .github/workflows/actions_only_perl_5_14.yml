@@ -40,10 +40,9 @@ jobs:
       
       - name: Install dependencies
         run: |
-          cpanm -n --sudo DBD::mysql
           cpanm -v --sudo --installdeps --notest . --with-all-features
-#          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
-#          cpanm -n --sudo DBD::SQLite JSON
+          cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
+          cpanm -n --sudo DBD::SQLite JSON
       
 #       - name: Copy mysql/sqlite conf files
 #         run: |
