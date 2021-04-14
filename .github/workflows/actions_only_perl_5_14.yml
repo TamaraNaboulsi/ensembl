@@ -52,9 +52,9 @@ jobs:
 #           cp travisci/testdb.conf.actions.SQLite testdb.conf.SQLite
 #           cp travisci/edited_runtests.pl ensembl-test/scripts/runtests.pl
       
-#       - name: Configure mysql
-#         run: |
-#           sudo service mysql start
+      - name: Configure mysql
+        run: |
+          sudo service mysql start
 #           mysql -e "CREATE USER 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
 #           mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
 #           mysql -e "SET GLOBAL local_infile=1" -u root -psecret -h 127.0.0.1 --port 8888
