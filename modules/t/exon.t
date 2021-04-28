@@ -480,7 +480,7 @@ SKIP: {
     ));
 
 
-  my $exon_one = $tr->get_all_Exons()->[0];
+  # my $exon_one = $tr->get_all_Exons()->[0];
 
   # ok($tr->translate, "Transcript can translate");
   # is($exon_one->start, $tr->start, 'Exon start equals Transcript start');
@@ -495,7 +495,7 @@ SKIP: {
   # ok($tr->coding_region_start > $exon_one->start,  'coding_region_start > exon_start');
   # ok($tr->coding_region_end < $exon_one->end,  'coding_region_end < exon_end');
 
-  my $is_coding = $exon_one->is_coding($tr);
+  # my $is_coding = $exon_one->is_coding($tr);
   # is($is_coding, 1, "Exon is coding");
 
   # REPEAT WITH NEGATIVE STRAND
