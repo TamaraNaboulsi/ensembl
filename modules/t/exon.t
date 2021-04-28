@@ -480,16 +480,16 @@ SKIP: {
     ));
 
 
-  my @test_exons = @{ $tr->get_all_Exons() };
-  my $exon_one = shift @test_exons;
-  use Data::Dumper;
-  print Dumper $exon_one;
+#   my @test_exons = @{ $tr->get_all_Exons() };
+#   my $exon_one = shift @test_exons;
+#   use Data::Dumper;
+#   print Dumper $exon_one;
 
 
-  $exon_one = $tr->get_all_Exons()->[0];
-  print Dumper $exon_one;
+  my $exon_one = $tr->get_all_Exons()->[0];
+#   print Dumper $exon_one;
 
-  print Dumper $tr;
+#   print Dumper $tr;
 
   # ok($tr->translate, "Transcript can translate");
   # is($exon_one->start, $tr->start, 'Exon start equals Transcript start');
@@ -504,7 +504,7 @@ SKIP: {
   # ok($tr->coding_region_start > $exon_one->start,  'coding_region_start > exon_start');
   # ok($tr->coding_region_end < $exon_one->end,  'coding_region_end < exon_end');
 
-  # my $is_coding = $exon_one->is_coding($tr);
+  my $is_coding = $exon_one->is_coding($tr);
   # is($is_coding, 1, "Exon is coding");
 
   # REPEAT WITH NEGATIVE STRAND
