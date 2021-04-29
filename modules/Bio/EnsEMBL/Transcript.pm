@@ -2091,83 +2091,82 @@ sub get_all_translateable_Exons {
 sub translate {
   my ($self, $complete_codon) = @_;
 
-  if ( !defined( $self->translation() ) ) { return undef }
+#   if ( !defined( $self->translation() ) ) { return undef }
 
-#   my $mrna = $self->translateable_seq();
+  my $mrna = $self->translateable_seq();
 
   # Alternative codon tables (such as the mitochondrial codon table)
   # can be specified for a sequence region via the seq_region_attrib
   # table.  A list of codon tables and their codes is at:
   # http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi
 
-#   my $codon_table_id;
-#   my ( $complete5, $complete3 );
-#   if ( defined( $self->slice() ) ) {
-#     my $attrib;
+  my $codon_table_id;
+  my ( $complete5, $complete3 );
+  if ( defined( $self->slice() ) ) {
+    my $attrib;
 
-#     ($attrib) = @{ $self->slice()->get_all_Attributes('codon_table') };
-#     if ( defined($attrib) ) {
-#       $codon_table_id = $attrib->value();
-#     }
+    ($attrib) = @{ $self->slice()->get_all_Attributes('codon_table') };
+    if ( defined($attrib) ) {
+      $codon_table_id = $attrib->value();
+    }
 
-#     ($attrib) = @{ $self->slice()->get_all_Attributes('complete5') };
-#     if ( defined($attrib) ) {
-#       $complete5 = $attrib->value();
-#     }
+    ($attrib) = @{ $self->slice()->get_all_Attributes('complete5') };
+    if ( defined($attrib) ) {
+      $complete5 = $attrib->value();
+    }
 
-#     ($attrib) = @{ $self->slice()->get_all_Attributes('complete3') };
-#     if ( defined($attrib) ) {
-#       $complete3 = $attrib->value();
-#     }
-#   }
-#   $codon_table_id ||= 1;    # default vertebrate codon table
+    ($attrib) = @{ $self->slice()->get_all_Attributes('complete3') };
+    if ( defined($attrib) ) {
+      $complete3 = $attrib->value();
+    }
+  }
+  $codon_table_id ||= 1;    # default vertebrate codon table
 
   # Remove final stop codon from the mrna if it is present.  Produced
   # peptides will not have '*' at end.  If terminal stop codon is
   # desired call translatable_seq directly and produce a translation
   # from it.
 
-#   if ( CORE::length($mrna) % 3 == 0 ) {
-#     my $codon_table =
-#       Bio::Tools::CodonTable->new( -id => $codon_table_id );
+  if ( CORE::length($mrna) % 3 == 0 ) {
+    my $codon_table =
+      Bio::Tools::CodonTable->new( -id => $codon_table_id );
 
-#     if ( $codon_table->is_ter_codon( substr( $mrna, -3, 3 ) ) ) {
-#       substr( $mrna, -3, 3, '' );
-#     }
-#   } elsif ( CORE::length($mrna) % 3 == 2 ) {
-#       # If we have a partial codon of 2 bp we need to decide if we
-#       # trim it or not to fix some bad behaviour in older bioperl
-#       # versions
-#       if ( $complete_codon ) {
-# 	  # If we want to do the bad behavior of bioperl 1.6.1 and older
-# 	  # where we guess the last codon if inomplete, pad an N
-# 	  # to the mrna sequence
-# 	  $mrna .= 'N';
-#       } else {
-# 	  # Otherwise trim those last two bp off so the behavior is
-# 	  # consistent across bioperl versions
-# 	  substr( $mrna, -2, 2, '' );
-#       }
-#   }
+    if ( $codon_table->is_ter_codon( substr( $mrna, -3, 3 ) ) ) {
+      substr( $mrna, -3, 3, '' );
+    }
+  } elsif ( CORE::length($mrna) % 3 == 2 ) {
+      # If we have a partial codon of 2 bp we need to decide if we
+      # trim it or not to fix some bad behaviour in older bioperl
+      # versions
+      if ( $complete_codon ) {
+	  # If we want to do the bad behavior of bioperl 1.6.1 and older
+	  # where we guess the last codon if inomplete, pad an N
+	  # to the mrna sequence
+	  $mrna .= 'N';
+      } else {
+	  # Otherwise trim those last two bp off so the behavior is
+	  # consistent across bioperl versions
+	  substr( $mrna, -2, 2, '' );
+      }
+  }
 
-#   if ( CORE::length($mrna) < 1 ) { return undef }
+  if ( CORE::length($mrna) < 1 ) { return undef }
 
-#   my $display_id = $self->translation->display_id()
-#     || scalar( $self->translation() );
+  my $display_id = $self->translation->display_id()
+    || scalar( $self->translation() );
 
-#   my $peptide = Bio::Seq->new( -seq      => $mrna,
-#                                -moltype  => 'dna',
-#                                -alphabet => 'dna',
-#                                -id       => $display_id );
+  my $peptide = Bio::Seq->new( -seq      => $mrna,
+                               -moltype  => 'dna',
+                               -alphabet => 'dna',
+                               -id       => $display_id );
 
-my $translation;
-#   my $translation =
-#     $peptide->translate( undef, undef, undef, $codon_table_id, undef,
-#                          undef, $complete5, $complete3 );
+  my $translation =
+    $peptide->translate( undef, undef, undef, $codon_table_id, undef,
+                         undef, $complete5, $complete3 );
 
-#   if ( $self->edits_enabled() ) {
-#     $self->translation()->modify_translation($translation);
-#   }
+  if ( $self->edits_enabled() ) {
+    $self->translation()->modify_translation($translation);
+  }
 
   return $translation;
 } ## end sub translate
