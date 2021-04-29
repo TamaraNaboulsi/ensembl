@@ -1295,13 +1295,10 @@ sub is_constitutive {
 
 sub is_coding {
   my ( $self, $transcript) = @_;
-  
-  print "####### I am in the is_coding function in Exon.pm\n";
 
   if (!$transcript) { throw("Transcript parameter is required for " . __PACKAGE__ . "->is_coding()."); }
 
-  if (!$transcript->translate) { return 0; }
-  print $!."\n";
+  if (!$transcript->can(translate) || !$transcript->translate) { return 0; }
 
   # coding region overlaps start of exon
   if ($transcript->coding_region_start <= $self->start && $self->start <= $transcript->coding_region_end) { return 1; }
