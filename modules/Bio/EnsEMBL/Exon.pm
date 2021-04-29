@@ -1300,7 +1300,8 @@ sub is_coding {
 
   if (!$transcript) { throw("Transcript parameter is required for " . __PACKAGE__ . "->is_coding()."); }
 
-  if (!defined($transcript->translate) || !$transcript->translate) { return 0; }
+  if (!$transcript->translate) { return 0; }
+  print $!."\n";
 
   # coding region overlaps start of exon
   if ($transcript->coding_region_start <= $self->start && $self->start <= $transcript->coding_region_end) { return 1; }
