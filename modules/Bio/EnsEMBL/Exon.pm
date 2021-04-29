@@ -1297,8 +1297,12 @@ sub is_coding {
   my ( $self, $transcript) = @_;
 
   if (!$transcript) { throw("Transcript parameter is required for " . __PACKAGE__ . "->is_coding()."); }
-
-  if (!$transcript->translate()) { return 0; }
+  
+  print "Before translate\n";
+  if (!$transcript->translate) { return 0; }
+  use Data::Dumper;
+  print Dumper $!;
+  print "After translate\n";
 
   # coding region overlaps start of exon
   if ($transcript->coding_region_start <= $self->start && $self->start <= $transcript->coding_region_end) { return 1; }
