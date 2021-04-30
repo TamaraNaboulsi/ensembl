@@ -2091,7 +2091,7 @@ sub get_all_translateable_Exons {
 sub translate {
   my ($self, $complete_codon) = @_;
 
-#   if ( !defined( $self->translation() ) ) { return undef }
+  if ( !defined( $self->translation() ) ) { return undef }
 
   my $mrna = $self->translateable_seq();
 
