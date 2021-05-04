@@ -1298,6 +1298,7 @@ sub is_coding {
 
   if (!$transcript) { throw("Transcript parameter is required for " . __PACKAGE__ . "->is_coding()."); }
   
+  print "########################## inside is_coding function\n";
   if (!$transcript->translate) { return 0; }
 
   # coding region overlaps start of exon
