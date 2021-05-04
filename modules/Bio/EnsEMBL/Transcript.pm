@@ -2090,6 +2090,10 @@ sub get_all_translateable_Exons {
 
 sub translate {
   my ($self, $complete_codon) = @_;
+  
+  use Data::Dumper;
+  print Dumper $self;
+  print Dumper $complete_codon;
 
   if ( !defined( $self->translation() ) ) { return undef }
 
