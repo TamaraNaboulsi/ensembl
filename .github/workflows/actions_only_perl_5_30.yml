@@ -24,8 +24,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       
-#       - name: Setup tmate session
-#         uses: mxschmitt/action-tmate@v3
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       
       - name: Set up perl 5.30
         uses: shogo82148/actions-setup-perl@v1
@@ -47,7 +47,7 @@ jobs:
           cpanm -v --sudo --installdeps --notest . --with-all-features
           cpanm -n --sudo Devel::Cover Devel::Cover::Report::Coveralls Test::Exception Moose Devel::Cycle Test::Warnings
           cpanm -n --sudo DBD::SQLite JSON
-#          cpanm -n --sudo Devel::Trace Module::Build
+          cpanm -n --sudo Devel::Trace Module::Build
       
       - name: Copy mysql/sqlite conf files
         run: |
@@ -71,7 +71,7 @@ jobs:
           USER: 'github'
         run: ./travisci/harness.sh
       
-#       - name: Sleep for 30 seconds
-#         uses: jakejarvis/wait-action@master
-#         with:
-#           time: '20m'
+      - name: Sleep for 30 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '20m'
