@@ -2091,51 +2091,50 @@ sub get_all_translateable_Exons {
 sub translate {
   my ($self, $complete_codon) = @_;
   
-  print "before translation\n";
   if ( !defined( $self->translation() ) ) { return undef }
   
-  print "before mrna\n";
   my $mrna = $self->translateable_seq();
+  use Data::Dumper;
+  print "mrna:\n";
+  print Dumper $mrna;
 
   # Alternative codon tables (such as the mitochondrial codon table)
   # can be specified for a sequence region via the seq_region_attrib
   # table.  A list of codon tables and their codes is at:
   # http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi
   
-  print "before defined slice\n";
   my $codon_table_id;
   my ( $complete5, $complete3 );
   if ( defined( $self->slice() ) ) {
     my $attrib;
     
-    print "codon table\n";
     ($attrib) = @{ $self->slice()->get_all_Attributes('codon_table') };
     if ( defined($attrib) ) {
       $codon_table_id = $attrib->value();
+      print Dumper $codon_table_id;
     }
     
-    print "complete5\n";
     ($attrib) = @{ $self->slice()->get_all_Attributes('complete5') };
     if ( defined($attrib) ) {
       $complete5 = $attrib->value();
+      print Dumper $complete5;
     }
 
-    print "complete3\n";
     ($attrib) = @{ $self->slice()->get_all_Attributes('complete3') };
     if ( defined($attrib) ) {
       $complete3 = $attrib->value();
+      print Dumper $complete3;
     }
   }
   $codon_table_id ||= 1;    # default vertebrate codon table
+  print Dumper $codon_table_id;
 
   # Remove final stop codon from the mrna if it is present.  Produced
   # peptides will not have '*' at end.  If terminal stop codon is
   # desired call translatable_seq directly and produce a translation
   # from it.
   
-  print "before length check\n";
   if ( CORE::length($mrna) % 3 == 0 ) {
-    print "length mod 3 eq 0\n";
     my $codon_table =
       Bio::Tools::CodonTable->new( -id => $codon_table_id );
 
@@ -2143,7 +2142,6 @@ sub translate {
       substr( $mrna, -3, 3, '' );
     }
   } elsif ( CORE::length($mrna) % 3 == 2 ) {
-      print "length mod 3 eq 2\n";
       # If we have a partial codon of 2 bp we need to decide if we
       # trim it or not to fix some bad behaviour in older bioperl
       # versions
@@ -2158,30 +2156,32 @@ sub translate {
 	  substr( $mrna, -2, 2, '' );
       }
   }
+  print "mrna after:\n";
+  print Dumper $mrna;
  
   if ( CORE::length($mrna) < 1 ) { return undef }
   
-  print "before display id\n";
   my $display_id = $self->translation->display_id()
     || scalar( $self->translation() );
+  print Dumper $display_id;
   
-  print "before peptide\n";
   my $peptide = Bio::Seq->new( -seq      => $mrna,
                                -moltype  => 'dna',
                                -alphabet => 'dna',
                                -id       => $display_id );
+  print "peptide:\n";
+  print Dumper $peptide;
   
-  print "before peptide translation\n";
   my $translation =
     $peptide->translate( undef, undef, undef, $codon_table_id, undef,
                          undef, $complete5, $complete3 );
+  print "translation:\n";
+  print Dumper $translation;
   
-  print "before modify translation\n";
   if ( $self->edits_enabled() ) {
     $self->translation()->modify_translation($translation);
   }
   
-  print "end of function\n";
   return $translation;
 } ## end sub translate
 
