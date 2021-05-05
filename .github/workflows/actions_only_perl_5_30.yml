@@ -64,14 +64,14 @@ jobs:
           mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'github'@'%'" -u root -psecret -h 127.0.0.1 --port 8888
           mysql -e "SET GLOBAL local_infile=1" -u root -psecret -h 127.0.0.1 --port 8888
       
-      - name: Run Test Suite
-        env:
-          DB: mysql
-          COVERALLS: false
-          USER: 'github'
-        run: ./travisci/harness.sh
+#       - name: Run Test Suite
+#         env:
+#           DB: mysql
+#           COVERALLS: false
+#           USER: 'github'
+#         run: ./travisci/harness.sh
       
       - name: Sleep for 30 seconds
         uses: jakejarvis/wait-action@master
         with:
-          time: '20m'
+          time: '60m'
