@@ -2094,9 +2094,6 @@ sub translate {
   if ( !defined( $self->translation() ) ) { return undef }
   
   my $mrna = $self->translateable_seq();
-  use Data::Dumper;
-  print "mrna:\n";
-  print Dumper $mrna;
 
   # Alternative codon tables (such as the mitochondrial codon table)
   # can be specified for a sequence region via the seq_region_attrib
@@ -2111,23 +2108,19 @@ sub translate {
     ($attrib) = @{ $self->slice()->get_all_Attributes('codon_table') };
     if ( defined($attrib) ) {
       $codon_table_id = $attrib->value();
-      print Dumper $codon_table_id;
     }
     
     ($attrib) = @{ $self->slice()->get_all_Attributes('complete5') };
     if ( defined($attrib) ) {
       $complete5 = $attrib->value();
-      print Dumper $complete5;
     }
 
     ($attrib) = @{ $self->slice()->get_all_Attributes('complete3') };
     if ( defined($attrib) ) {
       $complete3 = $attrib->value();
-      print Dumper $complete3;
     }
   }
   $codon_table_id ||= 1;    # default vertebrate codon table
-  print Dumper $codon_table_id;
 
   # Remove final stop codon from the mrna if it is present.  Produced
   # peptides will not have '*' at end.  If terminal stop codon is
@@ -2156,27 +2149,20 @@ sub translate {
 	  substr( $mrna, -2, 2, '' );
       }
   }
-  print "mrna after:\n";
-  print Dumper $mrna;
  
   if ( CORE::length($mrna) < 1 ) { return undef }
   
   my $display_id = $self->translation->display_id()
     || scalar( $self->translation() );
-  print Dumper $display_id;
   
   my $peptide = Bio::Seq->new( -seq      => $mrna,
                                -moltype  => 'dna',
                                -alphabet => 'dna',
                                -id       => $display_id );
-  print "peptide:\n";
-  print Dumper $peptide;
   
   my $translation =
     $peptide->translate( undef, undef, undef, $codon_table_id, undef,
                          undef, $complete5, $complete3 );
-  print "translation:\n";
-  print Dumper $translation;
   
   if ( $self->edits_enabled() ) {
     $self->translation()->modify_translation($translation);
