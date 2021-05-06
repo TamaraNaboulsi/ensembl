@@ -67,15 +67,15 @@ jobs:
       - name: Run Test Suite
         env:
           DB: mysql
-          COVERALLS: true
+          COVERALLS: false
           USER: 'github'
           repo_token: ${{ secrets.REPO_TOKEN }}
         run: ./travisci/harness.sh
       
-#       - name: Coveralls
-#         uses: coverallsapp/github-action@master
-#         with:
-#           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       
 #       - name: Sleep for 30 seconds
 #         uses: jakejarvis/wait-action@master
